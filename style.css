@@ -1,11 +1,12 @@
 :root {
-    --primary-color: #4A90E2;
-    --secondary-color: #F4F8FB;
-    --header-color: #333;
-    --border-color: #cccccc;
-    --highlight-color: #E8F4FD;
-    --holiday-color: #fdeaea;
-    --class-active-bg: #e6ffed;
+    --primary-color: #4A90E2; 
+    --secondary-color: #F4F8FB; 
+    --header-color: #333; 
+    --border-color: #cccccc; 
+    --sub-border-color: #e0e0e0; 
+    --highlight-color: #E8F4FD; 
+    --holiday-color: #fdeaea; 
+    --class-active-bg: #e6ffed; 
 }
 
 body {
@@ -52,9 +53,8 @@ table {
     text-align: center;
 }
 
-th,
-td {
-    padding: 15px;
+th, td {
+    padding: 12px 15px; 
     border: 1px solid var(--border-color);
     vertical-align: middle;
     min-width: 100px;
@@ -69,6 +69,7 @@ thead th {
 tbody td[rowspan] {
     background-color: #fdfdfd;
     font-weight: 600;
+    border-bottom: 2px solid #a0a0a0; 
 }
 
 tbody tr:hover {
@@ -76,8 +77,13 @@ tbody tr:hover {
 }
 
 .sub-row td {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px dashed var(--sub-border-color);
+    border-bottom: 1px dashed var(--sub-border-color);
 }
+tr:not(.sub-row) + .sub-row td {
+    border-top: 1px dashed var(--sub-border-color);
+}
+
 
 .class-slot {
     background-color: var(--class-active-bg);
@@ -99,4 +105,17 @@ tbody tr:hover {
 .current-day td.active-day-cell {
     border-left: 5px solid var(--primary-color);
     color: var(--primary-color);
+}
+
+.schedule-notes {
+    padding: 15px 30px;
+    background-color: #f9f9f9;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+}
+
+.schedule-notes p {
+    margin: 0;
 }
