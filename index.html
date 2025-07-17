@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jadwal Mengajar</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Jadwal Mengajar - Gempita Rizki Ramadhan</h1>
+      </header>
+
+      <div class="table-container">
+        <table id="schedule-table">
+          <thead>
+            <tr>
+              <th>Hari</th>
+              <th>Kelas A</th>
+              <th>Kelas B</th>
+              <th>Kelas C</th>
+              <th>Kelas D</th>
+              <th>Kelas E</th>
+              <th>Kelas F</th>
+              <th>Kelas G</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Senin</td>
+              <td>-</td>
+              <td class="class-slot">13:50 - 15:10</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td rowspan="2">Selasa</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="class-slot">07:20 - 08:40</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr class="sub-row">
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="class-slot">12:30 - 13:50</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Rabu</td>
+              <td colspan="7" class="holiday">LIBUR</td>
+            </tr>
+            <tr>
+              <td rowspan="2">Kamis</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="class-slot">07:20 - 08:40</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr class="sub-row">
+              <td>-</td>
+              <td>-</td>
+              <td class="class-slot">10:20 - 11:40</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td rowspan="2">Jumat</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="class-slot">09:05 - 10:40</td>
+            </tr>
+            <tr class="sub-row">
+              <td class="class-slot">12:30 - 13:50</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
