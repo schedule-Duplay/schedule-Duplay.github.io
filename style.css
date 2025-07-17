@@ -119,3 +119,45 @@ tr:not(.sub-row) + .sub-row td {
 .schedule-notes p {
     margin: 0;
 }
+
+/* Styling untuk Kontainer Tombol Aksi */
+.actions-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.actions-container button {
+    padding: 10px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.actions-container button:hover {
+    background-color: #3a7cc2;
+    transform: translateY(-2px);
+}
+
+.actions-container button:active {
+    transform: translateY(0);
+}
+
+.actions-container button.loading {
+    cursor: not-allowed;
+    background-color: #a0a0a0;
+}
+
+@media print {
+    .actions-container {
+        display: none;
+    }
+}
