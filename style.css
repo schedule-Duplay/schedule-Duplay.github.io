@@ -91,6 +91,9 @@ tr:not(.sub-row)+.sub-row td {
     background-color: var(--class-active-bg);
     color: #2E7D32;
     font-weight: 600;
+    /* Tambahan penting untuk positioning tooltip */
+    position: relative; 
+    cursor: pointer; 
 }
 
 .holiday {
@@ -183,4 +186,40 @@ tr:not(.sub-row)+.sub-row td {
     .actions-container {
         display: none;
     }
+}
+
+/* Gaya untuk pop-up itu sendiri */
+.class-slot .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tanda panah ke bawah untuk pop-up */
+.class-slot .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Tampilkan pop-up saat hover */
+.class-slot:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }
