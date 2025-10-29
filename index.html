@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi Daftar Isi Otomatis Microsoft Word</title>
+    <title>Simulator Daftar Isi Otomatis MS Word Lengkap</title>
     <style>
         :root {
-            --primary: #2B579A; /* Warna biru khas Microsoft */
-            --secondary: #D83B01; /* Warna oranye aksen */
+            --primary: #2B579A;
+            --secondary: #D83B01;
             --light: #F5F5F5;
             --dark: #323130;
             --success: #107C10;
             --warning: #FFB900;
             --gray: #8A8886;
+            --toolbar-bg: #F3F3F3;
+            --ribbon-bg: #FFFFFF;
         }
         
         * {
@@ -26,6 +28,7 @@
             background-color: #f0f2f5;
             color: var(--dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -57,177 +60,177 @@
             opacity: 0.9;
         }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
+        .word-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
         
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 22px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e1e5e9;
-        }
-        
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-        }
-        
-        .card h2 {
-            color: var(--primary);
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--light);
-            font-weight: 600;
-        }
-        
-        .card h3 {
-            color: var(--secondary);
-            margin: 16px 0 10px;
-            font-weight: 600;
-        }
-        
-        .steps {
-            counter-reset: step-counter;
-        }
-        
-        .step {
-            margin-bottom: 18px;
-            padding-left: 50px;
-            position: relative;
-        }
-        
-        .step:before {
-            counter-increment: step-counter;
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary);
-            color: white;
-            border-radius: 50%;
+        /* Toolbar Atas */
+        .word-toolbar {
+            background: var(--toolbar-bg);
+            padding: 8px 15px;
+            border-bottom: 1px solid #ddd;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
+        }
+        
+        .file-menu {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .file-menu button {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .file-menu button:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .quick-access {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .quick-access button {
+            background: none;
+            border: none;
+            padding: 6px 10px;
+            cursor: pointer;
+            border-radius: 4px;
             font-size: 0.9rem;
         }
         
-        .interactive-section {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-            margin-top: 25px;
-            border: 1px solid #e1e5e9;
-        }
-        
-        .word-interface {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .word-toolbar {
-            background: #f3f3f3;
-            padding: 8px 12px;
+        /* Ribbon */
+        .ribbon {
+            background: var(--ribbon-bg);
+            padding: 10px 15px;
             border-bottom: 1px solid #ddd;
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 25px;
         }
         
-        .word-body {
+        .ribbon-tab {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .ribbon-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .ribbon-group-title {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-align: center;
+        }
+        
+        .ribbon-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .ribbon-button {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            min-width: 60px;
+        }
+        
+        .ribbon-button:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .ribbon-button.active {
+            background: rgba(43, 87, 154, 0.1);
+            color: var(--primary);
+        }
+        
+        .ribbon-button i {
+            font-size: 1.2rem;
+        }
+        
+        /* Area Kerja */
+        .workspace {
             display: grid;
-            grid-template-columns: 1fr 300px;
-            min-height: 500px;
+            grid-template-columns: 1fr 350px;
+            min-height: 600px;
         }
         
-        @media (max-width: 768px) {
-            .word-body {
+        @media (max-width: 1024px) {
+            .workspace {
                 grid-template-columns: 1fr;
             }
         }
         
-        .document-area {
-            padding: 20px;
+        .document-panel {
+            padding: 25px;
             background: white;
             border-right: 1px solid #eee;
             overflow-y: auto;
         }
         
-        .sidebar {
+        .sidebar-panel {
             padding: 20px;
             background: #f9f9f9;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         
-        button {
-            padding: 8px 14px;
-            border: 1px solid #ccc;
+        /* Style untuk dokumen */
+        .document-content {
+            min-height: 500px;
+            padding: 20px;
+            border: 1px solid #e1e5e9;
             border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
             background: white;
-            color: var(--dark);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         
-        button:hover {
-            background: #f0f0f0;
+        .page {
+            background: white;
+            min-height: 400px;
+            padding: 40px 50px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            max-width: 800px;
+            position: relative;
         }
         
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .btn-primary:hover {
-            background-color: #1e4e8c;
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
-        
-        .btn-secondary:hover {
-            background-color: #b73201;
-        }
-        
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-        
-        .btn-success:hover {
-            background-color: #0d6a0d;
+        .page::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: var(--gray);
         }
         
         .heading-1 {
             font-size: 1.8rem;
             font-weight: bold;
             color: #2c3e50;
-            margin: 15px 0 10px;
+            margin: 20px 0 10px;
             padding: 5px 0;
         }
         
@@ -235,7 +238,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #34495e;
-            margin: 12px 0 8px;
+            margin: 15px 0 8px;
             margin-left: 15px;
             padding: 4px 0;
         }
@@ -244,7 +247,7 @@
             font-size: 1.3rem;
             font-weight: bold;
             color: #5d6d7e;
-            margin: 10px 0 6px;
+            margin: 12px 0 6px;
             margin-left: 30px;
             padding: 3px 0;
         }
@@ -252,23 +255,66 @@
         .normal-text {
             margin: 8px 0;
             padding: 2px 0;
+            line-height: 1.6;
         }
         
-        .table-of-contents {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 18px;
-            background-color: white;
-            margin-top: 15px;
+        .selected {
+            background-color: #e6f3ff !important;
+            outline: 2px solid var(--primary);
         }
         
-        .toc-title {
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
+        /* Sidebar Components */
+        .sidebar-section {
+            background: white;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
             color: var(--primary);
-            border-bottom: 1px solid #eee;
+            margin-bottom: 12px;
             padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .style-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .style-button {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        
+        .style-button:hover {
+            background: #f0f0f0;
+        }
+        
+        .style-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .toc-preview {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background: white;
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
         }
         
         .toc-item {
@@ -288,50 +334,143 @@
         .toc-h1 {
             font-weight: bold;
             margin-left: 0;
-            font-size: 1.1rem;
-        }
-        
-        .toc-h2 {
-            margin-left: 20px;
             font-size: 1rem;
         }
         
-        .toc-h3 {
-            margin-left: 40px;
+        .toc-h2 {
+            margin-left: 15px;
             font-size: 0.95rem;
+        }
+        
+        .toc-h3 {
+            margin-left: 30px;
+            font-size: 0.9rem;
         }
         
         .page-number {
             color: var(--gray);
         }
         
-        .note {
-            background-color: #fff9e6;
-            border-left: 4px solid var(--warning);
-            padding: 15px;
-            margin: 18px 0;
-            border-radius: 0 5px 5px 0;
+        /* Panel Navigasi */
+        .navigation-panel {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        .highlight {
-            background-color: #fffacd;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: 500;
+        .nav-button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
         }
         
-        .definition-box {
-            background-color: #f0f7ff;
-            border: 1px solid #cce0ff;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 15px 0;
+        .nav-button:hover {
+            background: #f0f0f0;
         }
         
-        .definition-title {
-            font-weight: bold;
-            color: var(--primary);
+        .nav-button.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .nav-button.primary:hover {
+            background: #1e4e8c;
+        }
+        
+        /* Panel Informasi */
+        .info-panel {
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: var(--gray);
+        }
+        
+        .info-value {
+            font-weight: 600;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        .word-status-bar {
+            background: var(--toolbar-bg);
+            padding: 8px 15px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .status-left, .status-right {
+            display: flex;
+            gap: 20px;
         }
         
         footer {
@@ -343,290 +482,323 @@
             font-size: 0.9rem;
         }
         
-        .selected {
-            background-color: #e6f3ff !important;
-            outline: 2px solid var(--primary);
-        }
-        
-        .style-gallery {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-        
-        .style-button {
-            padding: 6px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            background: white;
-            transition: all 0.2s;
-        }
-        
-        .style-button:hover {
-            background: #f0f0f0;
-        }
-        
-        .style-button.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .references-tab {
-            background: #e6e6e6;
-            padding: 5px 10px;
-            border-radius: 4px 4px 0 0;
-            display: inline-block;
-            margin-bottom: -1px;
-            border: 1px solid #ccc;
-            border-bottom: none;
-            font-weight: 500;
+        /* Responsif */
+        @media (max-width: 768px) {
+            .ribbon {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+            
+            .document-panel {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Simulasi Daftar Isi Otomatis Microsoft Word</h1>
-            <p>Panduan Lengkap dan Interaktif untuk Memahami Konsep dan Praktik Pembuatan Daftar Isi Otomatis</p>
+            <h1>Simulator Daftar Isi Otomatis MS Word</h1>
+            <p>Praktek Lengkap Pembuatan Daftar Isi Otomatis dengan Simulator Microsoft Word</p>
         </header>
         
-        <div class="content-grid">
-            <div class="card">
-                <h2>Konsep Dasar Daftar Isi Otomatis</h2>
-                
-                <div class="definition-box">
-                    <div class="definition-title">Apa itu Daftar Isi Otomatis?</div>
-                    <p>Daftar isi otomatis adalah fitur di Microsoft Word yang memungkinkan pembuatan daftar isi secara otomatis berdasarkan <span class="highlight">style heading</span> yang telah diterapkan pada dokumen. Fitur ini secara otomatis mengumpulkan semua judul dan subjudul yang telah diformat dengan style heading dan menampilkannya dalam bentuk daftar terstruktur dengan nomor halaman yang sesuai.</p>
+        <div class="word-container">
+            <!-- Toolbar Atas -->
+            <div class="word-toolbar">
+                <div class="file-menu">
+                    <button>File</button>
+                    <button>Edit</button>
+                    <button>View</button>
+                    <button>Insert</button>
+                    <button class="active">Format</button>
+                    <button>Tools</button>
+                    <button>Table</button>
+                    <button>Window</button>
+                    <button>Help</button>
+                </div>
+                <div class="quick-access">
+                    <button><i class="fas fa-save"></i></button>
+                    <button><i class="fas fa-undo"></i></button>
+                    <button><i class="fas fa-redo"></i></button>
+                    <button><i class="fas fa-print"></i></button>
+                </div>
+            </div>
+            
+            <!-- Ribbon -->
+            <div class="ribbon">
+                <div class="ribbon-tab">
+                    <div class="ribbon-group">
+                        <div class="ribbon-group-title">Font</div>
+                        <div class="ribbon-buttons">
+                            <button class="ribbon-button" title="Bold"><i class="fas fa-bold"></i></button>
+                            <button class="ribbon-button" title="Italic"><i class="fas fa-italic"></i></button>
+                            <button class="ribbon-button" title="Underline"><i class="fas fa-underline"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="ribbon-group">
+                        <div class="ribbon-group-title">Paragraph</div>
+                        <div class="ribbon-buttons">
+                            <button class="ribbon-button" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                            <button class="ribbon-button" title="Numbering"><i class="fas fa-list-ol"></i></button>
+                            <button class="ribbon-button" title="Decrease Indent"><i class="fas fa-outdent"></i></button>
+                            <button class="ribbon-button" title="Increase Indent"><i class="fas fa-indent"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="ribbon-group">
+                        <div class="ribbon-group-title">Styles</div>
+                        <div class="ribbon-buttons">
+                            <button class="ribbon-button active" onclick="showStylesPanel()" title="Styles"><i class="fas fa-paint-brush"></i><span>Styles</span></button>
+                        </div>
+                    </div>
                 </div>
                 
-                <h3>Mengapa Menggunakan Daftar Isi Otomatis?</h3>
-                <p>Penggunaan daftar isi otomatis memberikan beberapa keunggulan signifikan dibandingkan pembuatan manual:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><span class="highlight">Akurasi</span> - Nomor halaman selalu sesuai dengan posisi aktual heading dalam dokumen</li>
-                    <li><span class="highlight">Efisiensi</span> - Menghemat waktu karena tidak perlu mengetik ulang judul dan nomor halaman</li>
-                    <li><span class="highlight">Konsistensi</span> - Memastikan format daftar isi seragam throughout dokumen</li>
-                    <li><span class="highlight">Kemudahan Pembaruan</span> - Dapat diperbarui otomatis saat dokumen berubah</li>
-                    <li><span class="highlight">Navigasi Mudah</span> - Memungkinkan navigasi cepat ke bagian tertentu dengan mengklik item daftar isi</li>
-                </ul>
+                <div class="ribbon-tab">
+                    <div class="ribbon-group">
+                        <div class="ribbon-group-title">References</div>
+                        <div class="ribbon-buttons">
+                            <button class="ribbon-button" onclick="showTOCPanel()" title="Table of Contents"><i class="fas fa-list"></i><span>Daftar Isi</span></button>
+                            <button class="ribbon-button" title="Insert Footnote"><i class="fas fa-bookmark"></i><span>Catatan Kaki</span></button>
+                            <button class="ribbon-button" title="Citations"><i class="fas fa-quote-right"></i><span>Kutipan</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Area Kerja -->
+            <div class="workspace">
+                <div class="document-panel">
+                    <div class="document-content">
+                        <div class="page" id="documentPage">
+                            <div class="heading-1" data-heading="1">LAPORAN KEGIATAN OSIS SMA NEGERI 2 PLAYEN</div>
+                            <div class="normal-text" data-heading="0" style="text-align: center;">Tahun Pelajaran 2024/2025</div>
+                            
+                            <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
+                            <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
+                            <div class="normal-text" data-heading="0">OSIS SMA Negeri 2 Playen memiliki tanggung jawab sosial untuk menumbuhkan rasa kepedulian terhadap masyarakat sekitar. Salah satu bentuk kegiatan yang dilakukan setiap tahun adalah kegiatan bakti sosial dan donor darah. Kegiatan ini diadakan bekerja sama dengan Palang Merah Indonesia (PMI) Kabupaten Gunungkidul.</div>
+                            
+                            <div class="heading-2" data-heading="2">1.2 Tujuan Kegiatan</div>
+                            <div class="normal-text" data-heading="0">Kegiatan ini bertujuan untuk:</div>
+                            <div class="normal-text" data-heading="0">1. Menumbuhkan rasa empati dan kepedulian sosial siswa.</div>
+                            <div class="normal-text" data-heading="0">2. Meningkatkan kesadaran pentingnya donor darah bagi kesehatan masyarakat.</div>
+                            <div class="normal-text" data-heading="0">3. Membangun citra positif sekolah melalui kegiatan sosial kemanusiaan.</div>
+                            
+                            <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
+                            <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat Pelaksanaan</div>
+                            <div class="normal-text" data-heading="0">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025, pukul 07.30–12.00 WIB di Aula SMA Negeri 2 Playen.</div>
+                            
+                            <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
+                            <div class="normal-text" data-heading="0">Peserta kegiatan terdiri dari seluruh pengurus OSIS, anggota ekstrakurikuler PMR, serta guru pendamping.</div>
+                            
+                            <div class="heading-2" data-heading="2">2.3 Rangkaian Acara</div>
+                            <div class="normal-text" data-heading="0">1. Pembukaan dan sambutan Kepala Sekolah</div>
+                            <div class="normal-text" data-heading="0">2. Penyuluhan tentang pentingnya donor darah</div>
+                            <div class="normal-text" data-heading="0">3. Donor darah bersama PMI</div>
+                            <div class="normal-text" data-heading="0">4. Penyerahan bantuan sosial kepada masyarakat sekitar</div>
+                            <div class="normal-text" data-heading="0">5. Penutupan</div>
+                            
+                            <div class="heading-1" data-heading="1">BAB III HASIL DAN PEMBAHASAN</div>
+                            <div class="heading-2" data-heading="2">3.1 Hasil Pelaksanaan Kegiatan</div>
+                            <div class="normal-text" data-heading="0">Dari kegiatan donor darah, terkumpul sebanyak 67 kantong darah yang diserahkan kepada PMI Gunungkidul. Selain itu, bantuan sosial berupa paket sembako sebanyak 80 paket disalurkan ke warga sekitar sekolah.</div>
+                            
+                            <div class="heading-2" data-heading="2">3.2 Evaluasi Kegiatan</div>
+                            <div class="normal-text" data-heading="0">Secara umum kegiatan berjalan lancar. Namun, beberapa kendala ditemukan, antara lain kurangnya alat medis dari PMI dan keterbatasan waktu pelaksanaan.</div>
+                            
+                            <div class="heading-1" data-heading="1">BAB IV PENUTUP</div>
+                            <div class="heading-2" data-heading="2">4.1 Kesimpulan</div>
+                            <div class="normal-text" data-heading="0">Kegiatan bakti sosial dan donor darah ini memberikan manfaat besar bagi masyarakat dan siswa. Melalui kegiatan ini, siswa belajar untuk berempati, bekerja sama, dan menumbuhkan semangat gotong royong.</div>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="note">
-                    <h3>Kapan Sebaiknya Menggunakan Daftar Isi Otomatis?</h3>
-                    <p>Daftar isi otomatis sangat berguna untuk dokumen panjang seperti:</p>
-                    <ul style="margin-left: 20px; margin-top: 8px;">
-                        <li>Laporan penelitian atau skripsi</li>
-                        <li>Buku atau manual pengguna</li>
-                        <li>Dokumen teknis dengan banyak bab dan subbab</li>
-                        <li>Proposal proyek yang kompleks</li>
-                        <li>Laporan kegiatan seperti LKPD OSIS</li>
+                <div class="sidebar-panel">
+                    <!-- Panel Styles -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Styles</div>
+                        <div class="style-gallery">
+                            <button class="style-button" onclick="applyStyle('normal')">
+                                <div style="font-weight: normal;">Normal</div>
+                                <div style="font-size: 0.8rem; color: #666;">Body text</div>
+                            </button>
+                            <button class="style-button" onclick="applyStyle('heading-1')">
+                                <div style="font-weight: bold; font-size: 1.1rem;">Heading 1</div>
+                                <div style="font-size: 0.8rem; color: #666;">Bab utama</div>
+                            </button>
+                            <button class="style-button" onclick="applyStyle('heading-2')">
+                                <div style="font-weight: bold; font-size: 1rem;">Heading 2</div>
+                                <div style="font-size: 0.8rem; color: #666;">Sub-bab</div>
+                            </button>
+                            <button class="style-button" onclick="applyStyle('heading-3')">
+                                <div style="font-weight: bold; font-size: 0.95rem;">Heading 3</div>
+                                <div style="font-size: 0.8rem; color: #666;">Sub-sub-bab</div>
+                            </button>
+                        </div>
+                        
+                        <div class="navigation-panel">
+                            <button class="nav-button" onclick="showStylesModal()">
+                                <i class="fas fa-expand"></i> Panel Styles Lengkap
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Panel Daftar Isi -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Daftar Isi</div>
+                        <div class="toc-preview" id="tocPreview">
+                            <p>Pratinjau daftar isi akan muncul di sini setelah Anda menerapkan heading styles dan mengklik "Buat Daftar Isi".</p>
+                        </div>
+                        
+                        <div class="navigation-panel">
+                            <button class="nav-button" onclick="updateTOC()">
+                                <i class="fas fa-sync"></i> Perbarui
+                            </button>
+                            <button class="nav-button primary" onclick="generateTOC()">
+                                <i class="fas fa-magic"></i> Buat Daftar Isi
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Panel Informasi -->
+                    <div class="sidebar-section info-panel">
+                        <div class="sidebar-title">Informasi Dokumen</div>
+                        <div class="info-item">
+                            <span class="info-label">Jumlah Heading 1:</span>
+                            <span class="info-value" id="heading1Count">4</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Jumlah Heading 2:</span>
+                            <span class="info-value" id="heading2Count">8</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Jumlah Heading 3:</span>
+                            <span class="info-value" id="heading3Count">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status Daftar Isi:</span>
+                            <span class="info-value" id="tocStatus">Belum Dibuat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Bar -->
+            <div class="word-status-bar">
+                <div class="status-left">
+                    <span>Halaman 1 dari 1</span>
+                    <span>Kata: 427</span>
+                </div>
+                <div class="status-right">
+                    <span>Bahasa Indonesia</span>
+                    <span><i class="fas fa-eye"></i> 100%</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Styles Lengkap -->
+        <div class="modal" id="stylesModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Styles Gallery</h2>
+                    <button class="close-modal" onclick="closeStylesModal()">&times;</button>
+                </div>
+                
+                <div class="style-gallery" style="grid-template-columns: 1fr;">
+                    <button class="style-button" onclick="applyStyle('normal')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 30px; height: 30px; background: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-weight: normal; font-size: 0.9rem;">A</span>
+                            </div>
+                            <div>
+                                <div style="font-weight: normal;">Normal</div>
+                                <div style="font-size: 0.8rem; color: #666;">Teks dokumen biasa</div>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="style-button" onclick="applyStyle('heading-1')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 30px; height: 30px; background: #2B579A; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-weight: bold; color: white; font-size: 1.1rem;">H1</span>
+                            </div>
+                            <div>
+                                <div style="font-weight: bold; font-size: 1.2rem; color: #2B579A;">Heading 1</div>
+                                <div style="font-size: 0.8rem; color: #666;">Untuk judul bab utama</div>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="style-button" onclick="applyStyle('heading-2')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 30px; height: 30px; background: #4A7BC8; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-weight: bold; color: white; font-size: 1rem;">H2</span>
+                            </div>
+                            <div>
+                                <div style="font-weight: bold; font-size: 1.1rem; color: #4A7BC8;">Heading 2</div>
+                                <div style="font-size: 0.8rem; color: #666;">Untuk sub-bab</div>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="style-button" onclick="applyStyle('heading-3')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 30px; height: 30px; background: #7BA4D9; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-weight: bold; color: white; font-size: 0.9rem;">H3</span>
+                            </div>
+                            <div>
+                                <div style="font-weight: bold; font-size: 1rem; color: #7BA4D9;">Heading 3</div>
+                                <div style="font-size: 0.8rem; color: #666;">Untuk sub-sub-bab</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 6px;">
+                    <h3 style="margin-bottom: 10px;">Panduan Penggunaan Styles</h3>
+                    <ul style="margin-left: 20px;">
+                        <li>Pilih teks yang ingin diubah style-nya</li>
+                        <li>Klik salah satu style dari gallery di atas</li>
+                        <li>Gunakan <strong>Heading 1</strong> untuk judul bab utama</li>
+                        <li>Gunakan <strong>Heading 2</strong> untuk sub-bab</li>
+                        <li>Gunakan <strong>Heading 3</strong> untuk sub-sub-bab jika diperlukan</li>
+                        <li>Gunakan <strong>Normal</strong> untuk teks biasa/paragraf</li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="card">
-                <h2>Memahami Struktur Heading</h2>
-                
-                <p>Kunci dari daftar isi otomatis adalah penggunaan <span class="highlight">heading styles</span> yang tepat. Microsoft Word memiliki hierarki heading dari Level 1 (tertinggi) hingga Level 9 (terendah), namun yang umum digunakan adalah Heading 1, Heading 2, dan Heading 3.</p>
-                
-                <h3>Hierarki Heading yang Tepat</h3>
-                <p>Berikut contoh struktur heading yang benar untuk dokumen formal:</p>
-                <table style="width:100%; border-collapse: collapse; margin-top:12px; margin-bottom: 15px;">
-                    <tr style="background-color: #f2f2f2;">
-                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Bagian Dokumen</th>
-                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Style yang Direkomendasikan</th>
-                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Contoh</th>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Judul Utama / Bab</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Heading 1</td>
-                        <td style="padding:10px; border:1px solid #ddd;">BAB I PENDAHULUAN</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Subjudul Tingkat 1</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Heading 2</td>
-                        <td style="padding:10px; border:1px solid #ddd;">1.1 Latar Belakang</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Subjudul Tingkat 2</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Heading 3</td>
-                        <td style="padding:10px; border:1px solid #ddd;">1.1.1 Kondisi Saat Ini</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Teks Biasa / Paragraf</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Normal / Body Text</td>
-                        <td style="padding:10px; border:1px solid #ddd;">OSIS SMA Negeri 2 Playen memiliki...</td>
-                    </tr>
-                </table>
-                
-                <h3>Prinsip Penyusunan Heading</h3>
-                <div class="steps">
-                    <div class="step">
-                        <p>Gunakan <span class="highlight">Heading 1</span> untuk bagian paling penting seperti judul bab atau bagian utama</p>
-                    </div>
-                    <div class="step">
-                        <p>Gunakan <span class="highlight">Heading 2</span> untuk subbagian di bawah Heading 1</p>
-                    </div>
-                    <div class="step">
-                        <p>Gunakan <span class="highlight">Heading 3</span> untuk subbagian di bawah Heading 2 (jika diperlukan)</p>
-                    </div>
-                    <div class="step">
-                        <p>Jangan melompati level heading (misalnya dari Heading 1 langsung ke Heading 3)</p>
-                    </div>
-                    <div class="step">
-                        <p>Pastikan semua teks yang ingin muncul di daftar isi telah diberi style heading yang sesuai</p>
-                    </div>
-                </div>
-            </div>
         </div>
         
-        <div class="interactive-section">
-            <h2>Simulasi Microsoft Word - Pembuatan Daftar Isi Otomatis</h2>
-            <p>Praktekkan langsung dengan simulasi Word di bawah ini. Pilih teks, terapkan heading style, dan lihat bagaimana daftar isi otomatis terbentuk!</p>
-            
-            <div class="word-interface">
-                <div class="word-toolbar">
-                    <div class="style-gallery">
-                        <div class="style-button" onclick="applyStyle('normal')">Normal</div>
-                        <div class="style-button" onclick="applyStyle('heading-1')">Heading 1</div>
-                        <div class="style-button" onclick="applyStyle('heading-2')">Heading 2</div>
-                        <div class="style-button" onclick="applyStyle('heading-3')">Heading 3</div>
-                    </div>
-                    <div style="margin-left: auto; display: flex; gap: 8px;">
-                        <button class="btn-primary" onclick="generateTOC()">Buat Daftar Isi</button>
-                        <button class="btn-success" onclick="updateTOC()">Perbarui Daftar Isi</button>
-                        <button class="btn-secondary" onclick="resetDocument()">Reset Dokumen</button>
-                    </div>
-                </div>
-                <div class="word-body">
-                    <div class="document-area" id="documentEditor">
-                        <div class="heading-1" data-heading="1">LAPORAN KEGIATAN OSIS SMA NEGERI 2 PLAYEN</div>
-                        <div class="normal-text" data-heading="0">Tahun Pelajaran 2024/2025</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
-                        <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
-                        <div class="normal-text" data-heading="0">OSIS SMA Negeri 2 Playen memiliki tanggung jawab sosial untuk menumbuhkan rasa kepedulian terhadap masyarakat sekitar. Salah satu bentuk kegiatan yang dilakukan setiap tahun adalah kegiatan bakti sosial dan donor darah.</div>
-                        
-                        <div class="heading-2" data-heading="2">1.2 Tujuan Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Kegiatan ini bertujuan untuk:</div>
-                        <div class="normal-text" data-heading="0">1. Menumbuhkan rasa empati dan kepedulian sosial siswa.</div>
-                        <div class="normal-text" data-heading="0">2. Meningkatkan kesadaran pentingnya donor darah.</div>
-                        <div class="normal-text" data-heading="0">3. Membangun citra positif sekolah.</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
-                        <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat Pelaksanaan</div>
-                        <div class="normal-text" data-heading="0">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025, pukul 07.30–12.00 WIB di Aula SMA Negeri 2 Playen.</div>
-                        
-                        <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Peserta kegiatan terdiri dari seluruh pengurus OSIS, anggota ekstrakurikuler PMR, serta guru pendamping.</div>
-                        
-                        <div class="heading-2" data-heading="2">2.3 Rangkaian Acara</div>
-                        <div class="normal-text" data-heading="0">Kegiatan terdiri dari pembukaan, penyuluhan donor darah, donor darah bersama PMI, penyerahan bantuan sosial, dan penutupan.</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB III HASIL DAN PEMBAHASAN</div>
-                        <div class="heading-2" data-heading="2">3.1 Hasil Pelaksanaan Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Dari kegiatan donor darah, terkumpul sebanyak 67 kantong darah yang diserahkan kepada PMI Gunungkidul. Selain itu, bantuan sosial berupa paket sembako sebanyak 80 paket disalurkan ke warga sekitar sekolah.</div>
-                        
-                        <div class="heading-2" data-heading="2">3.2 Evaluasi Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Secara umum kegiatan berjalan lancar. Namun, beberapa kendala ditemukan, antara lain kurangnya alat medis dari PMI dan keterbatasan waktu pelaksanaan.</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB IV PENUTUP</div>
-                        <div class="heading-2" data-heading="2">4.1 Kesimpulan</div>
-                        <div class="normal-text" data-heading="0">Kegiatan bakti sosial dan donor darah ini memberikan manfaat besar bagi masyarakat dan siswa. Melalui kegiatan ini, siswa belajar untuk berempati, bekerja sama, dan menumbuhkan semangat gotong royong.</div>
-                    </div>
-                    
-                    <div class="sidebar">
-                        <div class="references-tab">REFERENCES</div>
-                        <div class="table-of-contents" id="tableOfContents">
-                            <div class="toc-title">DAFTAR ISI</div>
-                            <p>Klik tombol "Buat Daftar Isi" untuk menampilkan daftar isi otomatis di sini.</p>
-                            <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Setelah daftar isi dibuat, Anda dapat mengklik item untuk navigasi cepat.</p>
-                        </div>
-                        
-                        <div style="margin-top: 25px;">
-                            <h3 style="color: var(--primary); margin-bottom: 10px;">Panduan Cepat</h3>
-                            <div class="steps">
-                                <div class="step">
-                                    <p>Pilih teks di area dokumen</p>
-                                </div>
-                                <div class="step">
-                                    <p>Klik style yang diinginkan (Normal, Heading 1, 2, atau 3)</p>
-                                </div>
-                                <div class="step">
-                                    <p>Klik "Buat Daftar Isi" untuk menghasilkan daftar isi</p>
-                                </div>
-                                <div class="step">
-                                    <p>Ubah dokumen, lalu klik "Perbarui Daftar Isi"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="note">
-                <h3>Tips Profesional untuk Daftar Isi yang Efektif</h3>
-                <ul style="margin-left: 20px; margin-top: 8px;">
-                    <li>Gunakan <span class="highlight">Heading 1</span> hanya untuk bagian paling penting seperti judul bab</li>
-                    <li>Pertahankan konsistensi dalam penulisan judul (huruf besar/kecil, gaya)</li>
-                    <li>Perbarui daftar isi setiap kali ada perubahan signifikan pada dokumen</li>
-                    <li>Gunakan <span class="highlight">Update Entire Table</span> ketika struktur dokumen berubah</li>
-                    <li>Pastikan daftar isi mencerminkan struktur dokumen secara akurat</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2>Langkah Detail Pembuatan Daftar Isi Otomatis</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <h3>Persiapan Dokumen</h3>
-                    <p>Sebelum membuat daftar isi, pastikan semua judul dan subjudul dalam dokumen telah diformat dengan style heading yang sesuai. Gunakan <span class="highlight">Heading 1</span> untuk judul bab, <span class="highlight">Heading 2</span> untuk subbab, dan <span class="highlight">Heading 3</span> untuk sub-subbab jika diperlukan.</p>
+        <!-- Modal Daftar Isi -->
+        <div class="modal" id="tocModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Daftar Isi Otomatis</h2>
+                    <button class="close-modal" onclick="closeTOCModal()">&times;</button>
                 </div>
                 
-                <div class="step">
-                    <h3>Menempatkan Kursor</h3>
-                    <p>Posisikan kursor di tempat Anda ingin menampilkan daftar isi, biasanya di halaman awal dokumen setelah halaman judul.</p>
+                <div id="tocModalContent">
+                    <p>Membuat daftar isi otomatis...</p>
                 </div>
                 
-                <div class="step">
-                    <h3>Membuka Menu Table of Contents</h3>
-                    <p>Buka tab <span class="highlight">References</span> di ribbon Microsoft Word, lalu klik tombol <span class="highlight">Table of Contents</span>.</p>
+                <div class="navigation-panel" style="margin-top: 20px;">
+                    <button class="nav-button" onclick="updateTOC()">
+                        <i class="fas fa-sync"></i> Perbarui Daftar Isi
+                    </button>
+                    <button class="nav-button primary" onclick="insertTOC()">
+                        <i class="fas fa-plus"></i> Sisipkan ke Dokumen
+                    </button>
                 </div>
-                
-                <div class="step">
-                    <h3>Memilih Gaya Daftar Isi</h3>
-                    <p>Pilih salah satu opsi daftar isi otomatis yang tersedia. Word menyediakan beberapa template siap pakai dengan format yang berbeda.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Menyesuaikan Pengaturan (Opsional)</h3>
-                    <p>Jika diperlukan, Anda dapat menyesuaikan pengaturan daftar isi dengan memilih <span class="highlight">Custom Table of Contents</span>. Di sini Anda dapat mengubah format, level heading yang ditampilkan, dan opsi lainnya.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Memperbarui Daftar Isi</h3>
-                    <p>Setelah membuat perubahan pada dokumen (menambah, menghapus, atau memindahkan heading), klik kanan pada daftar isi dan pilih <span class="highlight">Update Field</span>. Pilih <span class="highlight">Update Entire Table</span> untuk memperbarui seluruh daftar isi.</p>
-                </div>
-            </div>
-            
-            <div class="definition-box">
-                <div class="definition-title">Memahami Opsi Update Field</div>
-                <p>Ketika memperbarui daftar isi, Word menawarkan dua opsi:</p>
-                <ul style="margin-left: 20px; margin-top: 8px;">
-                    <li><span class="highlight">Update page numbers only</span> - Hanya memperbarui nomor halaman, tanpa mengubah judul</li>
-                    <li><span class="highlight">Update entire table</span> - Memperbarui seluruh daftar isi termasuk judul dan nomor halaman</li>
-                </ul>
-                <p style="margin-top: 10px;">Gunakan <span class="highlight">Update entire table</span> ketika Anda menambah, menghapus, atau mengubah judul heading. Gunakan <span class="highlight">Update page numbers only</span> ketika hanya posisi halaman yang berubah.</p>
             </div>
         </div>
         
         <footer>
-            <p>Simulasi Pembelajaran Daftar Isi Otomatis Microsoft Word - Materi Teknologi Informasi dan Komunikasi</p>
+            <p>Simulator Pembelajaran Daftar Isi Otomatis Microsoft Word - Materi Teknologi Informasi dan Komunikasi</p>
             <p>SMA Negeri 2 Playen - Tahun Pelajaran 2024/2025</p>
-            <p style="margin-top: 8px;">Aplikasi ini mensimulasikan fungsi dasar pembuatan daftar isi otomatis untuk keperluan pembelajaran.</p>
         </footer>
     </div>
 
@@ -637,12 +809,6 @@
         // Fungsi untuk menerapkan style
         function applyStyle(style) {
             currentStyle = style;
-            
-            // Update tampilan tombol style
-            document.querySelectorAll('.style-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            event.target.classList.add('active');
             
             if (selectedElement) {
                 // Hapus class style sebelumnya
@@ -657,6 +823,9 @@
                     selectedElement.setAttribute('data-heading', '0');
                 }
                 
+                // Update informasi dokumen
+                updateDocumentInfo();
+                
                 // Update tampilan daftar isi jika sudah dibuat
                 if (document.querySelectorAll('.toc-item').length > 0) {
                     updateTOC();
@@ -669,7 +838,8 @@
         // Fungsi untuk menghasilkan daftar isi
         function generateTOC() {
             const headings = document.querySelectorAll('[data-heading]');
-            const tocContainer = document.getElementById('tableOfContents');
+            const tocPreview = document.getElementById('tocPreview');
+            const tocModalContent = document.getElementById('tocModalContent');
             
             // Filter hanya heading (bukan normal text)
             const headingElements = Array.from(headings).filter(el => {
@@ -677,12 +847,13 @@
             });
             
             if (headingElements.length === 0) {
-                tocContainer.innerHTML = '<div class="toc-title">DAFTAR ISI</div><p>Tidak ada heading yang ditemukan. Terapkan heading style terlebih dahulu.</p>';
+                tocPreview.innerHTML = '<p>Tidak ada heading yang ditemukan. Terapkan heading style terlebih dahulu.</p>';
+                tocModalContent.innerHTML = '<p>Tidak ada heading yang ditemukan. Terapkan heading style terlebih dahulu.</p>';
+                document.getElementById('tocStatus').textContent = 'Gagal - Tidak Ada Heading';
                 return;
             }
             
-            let tocHTML = '<div class="toc-title">DAFTAR ISI</div>';
-            let page = 1;
+            let tocHTML = '';
             let currentPage = 1;
             
             headingElements.forEach((heading, index) => {
@@ -690,8 +861,7 @@
                 const text = heading.textContent;
                 
                 // Simulasi nomor halaman (dalam implementasi nyata, ini akan dihitung berdasarkan posisi)
-                // Di sini kita menggunakan increment sederhana untuk simulasi
-                if (index > 0 && index % 2 === 0) {
+                if (index > 0 && index % 3 === 0) {
                     currentPage++;
                 }
                 
@@ -703,7 +873,14 @@
                 `;
             });
             
-            tocContainer.innerHTML = tocHTML;
+            tocPreview.innerHTML = tocHTML;
+            tocModalContent.innerHTML = `
+                <div style="border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;">
+                    <div style="text-align: center; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">DAFTAR ISI</div>
+                    ${tocHTML}
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">Daftar isi telah berhasil dibuat berdasarkan heading yang ada dalam dokumen.</p>
+            `;
             
             // Tambahkan event listener untuk item daftar isi
             document.querySelectorAll('.toc-item').forEach(item => {
@@ -712,7 +889,7 @@
                     const targetHeading = headingElements[index];
                     
                     // Highlight heading yang dipilih
-                    document.querySelectorAll('.heading-1, .heading-2, .heading-3').forEach(h => {
+                    document.querySelectorAll('.heading-1', '.heading-2', '.heading-3').forEach(h => {
                         h.style.backgroundColor = '';
                     });
                     
@@ -722,6 +899,8 @@
                     targetHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
+            
+            document.getElementById('tocStatus').textContent = 'Aktif - ' + headingElements.length + ' Item';
             
             // Tampilkan pesan sukses
             alert('Daftar isi berhasil dibuat! Klik item daftar isi untuk navigasi cepat.');
@@ -733,64 +912,66 @@
             alert('Daftar isi telah diperbarui!');
         }
         
-        // Fungsi untuk reset dokumen
-        function resetDocument() {
-            document.getElementById('documentEditor').innerHTML = `
-                <div class="heading-1" data-heading="1">LAPORAN KEGIATAN OSIS SMA NEGERI 2 PLAYEN</div>
-                <div class="normal-text" data-heading="0">Tahun Pelajaran 2024/2025</div>
-                
-                <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
-                <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
-                <div class="normal-text" data-heading="0">OSIS SMA Negeri 2 Playen memiliki tanggung jawab sosial untuk menumbuhkan rasa kepedulian terhadap masyarakat sekitar. Salah satu bentuk kegiatan yang dilakukan setiap tahun adalah kegiatan bakti sosial dan donor darah.</div>
-                
-                <div class="heading-2" data-heading="2">1.2 Tujuan Kegiatan</div>
-                <div class="normal-text" data-heading="0">Kegiatan ini bertujuan untuk:</div>
-                <div class="normal-text" data-heading="0">1. Menumbuhkan rasa empati dan kepedulian sosial siswa.</div>
-                <div class="normal-text" data-heading="0">2. Meningkatkan kesadaran pentingnya donor darah.</div>
-                <div class="normal-text" data-heading="0">3. Membangun citra positif sekolah.</div>
-                
-                <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
-                <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat Pelaksanaan</div>
-                <div class="normal-text" data-heading="0">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025, pukul 07.30–12.00 WIB di Aula SMA Negeri 2 Playen.</div>
-                
-                <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
-                <div class="normal-text" data-heading="0">Peserta kegiatan terdiri dari seluruh pengurus OSIS, anggota ekstrakurikuler PMR, serta guru pendamping.</div>
-                
-                <div class="heading-2" data-heading="2">2.3 Rangkaian Acara</div>
-                <div class="normal-text" data-heading="0">Kegiatan terdiri dari pembukaan, penyuluhan donor darah, donor darah bersama PMI, penyerahan bantuan sosial, dan penutupan.</div>
-                
-                <div class="heading-1" data-heading="1">BAB III HASIL DAN PEMBAHASAN</div>
-                <div class="heading-2" data-heading="2">3.1 Hasil Pelaksanaan Kegiatan</div>
-                <div class="normal-text" data-heading="0">Dari kegiatan donor darah, terkumpul sebanyak 67 kantong darah yang diserahkan kepada PMI Gunungkidul. Selain itu, bantuan sosial berupa paket sembako sebanyak 80 paket disalurkan ke warga sekitar sekolah.</div>
-                
-                <div class="heading-2" data-heading="2">3.2 Evaluasi Kegiatan</div>
-                <div class="normal-text" data-heading="0">Secara umum kegiatan berjalan lancar. Namun, beberapa kendala ditemukan, antara lain kurangnya alat medis dari PMI dan keterbatasan waktu pelaksanaan.</div>
-                
-                <div class="heading-1" data-heading="1">BAB IV PENUTUP</div>
-                <div class="heading-2" data-heading="2">4.1 Kesimpulan</div>
-                <div class="normal-text" data-heading="0">Kegiatan bakti sosial dan donor darah ini memberikan manfaat besar bagi masyarakat dan siswa. Melalui kegiatan ini, siswa belajar untuk berempati, bekerja sama, dan menumbuhkan semangat gotong royong.</div>
-            `;
+        // Fungsi untuk menyisipkan daftar isi ke dokumen
+        function insertTOC() {
+            const tocModalContent = document.getElementById('tocModalContent');
+            const tocHTML = tocModalContent.querySelector('div').outerHTML;
             
-            document.getElementById('tableOfContents').innerHTML = `
-                <div class="toc-title">DAFTAR ISI</div>
-                <p>Klik tombol "Buat Daftar Isi" untuk menampilkan daftar isi otomatis di sini.</p>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Setelah daftar isi dibuat, Anda dapat mengklik item untuk navigasi cepat.</p>
-            `;
+            // Cari elemen pertama dalam dokumen
+            const firstElement = document.querySelector('#documentPage > div');
             
-            // Reset tombol style
-            document.querySelectorAll('.style-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector('.style-button').classList.add('active');
-            currentStyle = 'normal';
+            // Buat elemen daftar isi baru
+            const tocElement = document.createElement('div');
+            tocElement.className = 'toc-inserted';
+            tocElement.innerHTML = tocHTML;
             
-            // Tambahkan event listener untuk elemen yang baru direset
-            addEventListeners();
+            // Sisipkan sebelum elemen pertama
+            document.getElementById('documentPage').insertBefore(tocElement, firstElement);
+            
+            alert('Daftar isi telah disisipkan ke dokumen!');
+            closeTOCModal();
+        }
+        
+        // Fungsi untuk memperbarui informasi dokumen
+        function updateDocumentInfo() {
+            const heading1Count = document.querySelectorAll('.heading-1').length;
+            const heading2Count = document.querySelectorAll('.heading-2').length;
+            const heading3Count = document.querySelectorAll('.heading-3').length;
+            
+            document.getElementById('heading1Count').textContent = heading1Count;
+            document.getElementById('heading2Count').textContent = heading2Count;
+            document.getElementById('heading3Count').textContent = heading3Count;
+        }
+        
+        // Fungsi untuk menampilkan modal styles
+        function showStylesModal() {
+            document.getElementById('stylesModal').style.display = 'flex';
+        }
+        
+        // Fungsi untuk menutup modal styles
+        function closeStylesModal() {
+            document.getElementById('stylesModal').style.display = 'none';
+        }
+        
+        // Fungsi untuk menampilkan modal daftar isi
+        function showTOCPanel() {
+            generateTOC();
+            document.getElementById('tocModal').style.display = 'flex';
+        }
+        
+        // Fungsi untuk menutup modal daftar isi
+        function closeTOCModal() {
+            document.getElementById('tocModal').style.display = 'none';
+        }
+        
+        // Fungsi untuk menampilkan panel styles di ribbon
+        function showStylesPanel() {
+            alert('Panel Styles dibuka. Gunakan panel di sidebar untuk mengatur styles.');
         }
         
         // Fungsi untuk menambahkan event listener pada elemen dokumen
         function addEventListeners() {
-            const editor = document.getElementById('documentEditor');
+            const editor = document.getElementById('documentPage');
             const elements = editor.querySelectorAll('div');
             
             elements.forEach(element => {
@@ -806,15 +987,10 @@
                     
                     // Tentukan style saat ini untuk tombol
                     const currentHeading = this.getAttribute('data-heading');
-                    document.querySelectorAll('.style-button').forEach(button => {
-                        button.classList.remove('active');
-                    });
                     
                     if (currentHeading === '0') {
-                        document.querySelector('.style-button').classList.add('active');
                         currentStyle = 'normal';
                     } else {
-                        document.querySelector(`.style-button:nth-child(${parseInt(currentHeading) + 1})`).classList.add('active');
                         currentStyle = `heading-${currentHeading}`;
                     }
                 });
@@ -824,9 +1000,10 @@
         // Inisialisasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             addEventListeners();
+            updateDocumentInfo();
             
-            // Set tombol Normal sebagai aktif secara default
-            document.querySelector('.style-button').classList.add('active');
+            // Set status daftar isi
+            document.getElementById('tocStatus').textContent = 'Belum Dibuat';
         });
     </script>
 </body>
