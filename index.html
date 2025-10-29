@@ -11,7 +11,6 @@
             --accent: #e74c3c;
             --light: #ecf0f1;
             --dark: #2c3e50;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         * {
@@ -32,7 +31,6 @@
             color: white;
             padding: 2rem 1rem;
             text-align: center;
-            box-shadow: var(--shadow);
         }
         
         .container {
@@ -46,21 +44,15 @@
             border-radius: 10px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         h1, h2, h3 {
             margin-bottom: 1rem;
-            color: var(--dark);
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
         }
         
         h2 {
@@ -69,13 +61,9 @@
             padding-bottom: 0.5rem;
         }
         
-        h3 {
-            color: var(--secondary);
-        }
-        
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin: 1.5rem 0;
         }
@@ -91,19 +79,12 @@
             font-weight: bold;
             transition: all 0.3s ease;
             text-decoration: none;
+            margin: 0.5rem;
         }
         
         .btn:hover {
             background: var(--secondary);
             transform: scale(1.05);
-        }
-        
-        .btn-secondary {
-            background: var(--secondary);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--primary);
         }
         
         .tab-container {
@@ -135,7 +116,7 @@
             padding: 1.5rem;
             background: white;
             border-radius: 0 0 10px 10px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .tab-content.active {
@@ -148,33 +129,25 @@
             to { opacity: 1; }
         }
         
-        .interactive-section {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-        }
-        
         .array-visualization {
             display: flex;
             justify-content: center;
             margin: 1.5rem 0;
+            flex-wrap: wrap;
         }
         
         .array-element {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: var(--primary);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 10px;
+            margin: 0 5px;
             border-radius: 5px;
             font-weight: bold;
-            font-size: 1.2rem;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow);
         }
         
         .array-element.active {
@@ -182,11 +155,12 @@
             transform: scale(1.1);
         }
         
-        .sorting-visualization {
+        .sorting-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 1.5rem 0;
+            align-items: flex-end;
+            height: 200px;
+            margin: 1rem 0;
+            justify-content: center;
         }
         
         .sorting-bar {
@@ -194,20 +168,11 @@
             background: var(--primary);
             margin: 0 2px;
             transition: all 0.3s ease;
-        }
-        
-        .sorting-container {
             display: flex;
             align-items: flex-end;
-            height: 200px;
-            margin: 1rem 0;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
         
         .quiz-container {
@@ -215,7 +180,6 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1.5rem 0;
-            box-shadow: var(--shadow);
         }
         
         .question {
@@ -280,21 +244,6 @@
             margin-top: 2rem;
         }
         
-        .progress-bar {
-            height: 10px;
-            background: var(--light);
-            border-radius: 5px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 100%;
-            background: var(--secondary);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -335,17 +284,12 @@
                     <h3>Mata Pelajaran</h3>
                     <p>Informatika</p>
                 </div>
-                <div>
-                    <h3>Alokasi Waktu</h3>
-                    <p>2 JP x 40 Menit</p>
-                </div>
             </div>
         </div>
         
         <div class="tab-container">
             <div class="tabs">
                 <div class="tab active" data-tab="overview">Gambaran Umum</div>
-                <div class="tab" data-tab="cp-tp">CP & TP</div>
                 <div class="tab" data-tab="array">Struktur Data Array</div>
                 <div class="tab" data-tab="sorting">Algoritma Pengurutan</div>
                 <div class="tab" data-tab="assessment">Asesmen</div>
@@ -360,69 +304,13 @@
                     <li>Analisis eksekusi algoritma (tracing)</li>
                 </ul>
                 
-                <div class="interactive-section">
-                    <h3>Profil Pelajar Pancasila</h3>
-                    <div class="grid">
-                        <div class="card">
-                            <h4>Keimanan dan Ketakwaan</h4>
-                            <p>Menumbuhkan rasa syukur atas kemampuan berpikir yang diberikan Tuhan</p>
-                        </div>
-                        <div class="card">
-                            <h4>Kewargaan Global</h4>
-                            <p>Memahami penerapan algoritma dalam kehidupan sehari-hari</p>
-                        </div>
-                        <div class="card">
-                            <h4>Kreativitas</h4>
-                            <p>Mengembangkan solusi kreatif dalam pemecahan masalah</p>
-                        </div>
-                        <div class="card">
-                            <h4>Kolaborasi</h4>
-                            <p>Bekerja sama dalam kelompok untuk menyelesaikan masalah</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="cp-tp">
-                <h2>Capaian Pembelajaran & Tujuan Pembelajaran</h2>
-                
-                <div class="card">
-                    <h3>Capaian Pembelajaran</h3>
-                    <p>Memahami konsep struktur data dan algoritma standar</p>
-                </div>
-                
                 <div class="card">
                     <h3>Tujuan Pembelajaran</h3>
-                    <div class="grid">
-                        <div class="card">
-                            <h4>TP 1 (C3 - Mengaplikasikan)</h4>
-                            <p>Peserta Didik mampu menerapkan struktur data array untuk menyimpan dan mengelola data dalam program sederhana dengan baik dan benar.</p>
-                        </div>
-                        <div class="card">
-                            <h4>TP 2 (C3 - Mengaplikasikan)</h4>
-                            <p>Peserta Didik mampu mensimulasikan langkah-langkah algoritma pengurutan standar (misal: bubble sort atau selection sort) pada sekumpulan data dengan tepat.</p>
-                        </div>
-                        <div class="card">
-                            <h4>TP 3 (C4 - Menganalisis)</h4>
-                            <p>Peserta Didik mampu menganalisis eksekusi (trace) algoritma pencarian atau pengurutan untuk menyimpulkan hasil akhir dari sebuah kasus data dengan baik dan benar.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-section">
-                    <h3>Keterkaitan dengan Taksonomi Bloom</h3>
-                    <div class="progress-bar">
-                        <div class="progress" id="bloom-progress"></div>
-                    </div>
-                    <div class="controls">
-                        <button class="btn" id="show-c1">C1 (Mengingat)</button>
-                        <button class="btn" id="show-c2">C2 (Memahami)</button>
-                        <button class="btn" id="show-c3">C3 (Mengaplikasikan)</button>
-                        <button class="btn" id="show-c4">C4 (Menganalisis)</button>
-                    </div>
-                    <div id="bloom-explanation" class="card">
-                        <p>Pilih level taksonomi Bloom untuk melihat penjelasan</p>
-                    </div>
+                    <ol>
+                        <li>Menerapkan struktur data array untuk menyimpan dan mengelola data</li>
+                        <li>Mensimulasikan algoritma pengurutan standar</li>
+                        <li>Menganalisis eksekusi algoritma pencarian atau pengurutan</li>
+                    </ol>
                 </div>
             </div>
             
@@ -433,56 +321,17 @@
                     <h3>Apa itu Array?</h3>
                     <p>Array adalah struktur data yang digunakan untuk menyimpan sekumpulan data dengan tipe yang sama dalam satu variabel.</p>
                     
-                    <div class="interactive-section">
-                        <h4>Visualisasi Array</h4>
-                        <div class="array-visualization" id="array-visual">
-                            <!-- Array elements will be generated by JavaScript -->
-                        </div>
-                        <div class="controls">
-                            <button class="btn" id="add-element">Tambah Elemen</button>
-                            <button class="btn" id="remove-element">Hapus Elemen</button>
-                            <button class="btn" id="update-element">Update Elemen</button>
-                            <button class="btn" id="reset-array">Reset Array</button>
-                        </div>
-                        <div id="array-code" class="card">
-                            <h4>Kode Array</h4>
-                            <pre id="code-display">// Kode array akan muncul di sini</pre>
-                        </div>
+                    <div class="array-visualization" id="array-visual">
+                        <!-- Array elements will be generated by JavaScript -->
                     </div>
-                </div>
-                
-                <div class="card">
-                    <h3>Contoh Penerapan Array</h3>
-                    <p>Array dapat digunakan untuk menyimpan data seperti:</p>
-                    <ul>
-                        <li>Daftar nilai siswa</li>
-                        <li>Data penjualan harian</li>
-                        <li>Kumpulan nama peserta</li>
-                    </ul>
-                    
-                    <div class="interactive-section">
-                        <h4>Simulasi Leaderboard</h4>
-                        <p>Masukkan nama dan skor untuk membuat leaderboard:</p>
-                        <div class="controls">
-                            <input type="text" id="player-name" placeholder="Nama Pemain">
-                            <input type="number" id="player-score" placeholder="Skor">
-                            <button class="btn" id="add-player">Tambah Pemain</button>
-                        </div>
-                        <div id="leaderboard" class="card">
-                            <h4>Leaderboard</h4>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Peringkat</th>
-                                        <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Nama</th>
-                                        <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Skor</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="leaderboard-body">
-                                    <!-- Leaderboard rows will be generated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
+                    <div>
+                        <button class="btn" id="add-element">Tambah Elemen</button>
+                        <button class="btn" id="remove-element">Hapus Elemen</button>
+                        <button class="btn" id="update-element">Update Elemen</button>
+                    </div>
+                    <div class="card">
+                        <h4>Kode Array</h4>
+                        <pre id="code-display">// Kode array akan muncul di sini</pre>
                     </div>
                 </div>
             </div>
@@ -492,45 +341,19 @@
                 
                 <div class="card">
                     <h3>Bubble Sort</h3>
-                    <p>Bubble Sort adalah algoritma pengurutan sederhana yang berulang kali membandingkan elemen yang berdekatan dan menukarnya jika urutannya salah.</p>
+                    <p>Algoritma pengurutan sederhana yang membandingkan elemen berdekatan dan menukarnya jika urutannya salah.</p>
                     
-                    <div class="interactive-section">
-                        <h4>Visualisasi Bubble Sort</h4>
-                        <div class="sorting-container" id="bubble-sort-visual">
-                            <!-- Sorting bars will be generated by JavaScript -->
-                        </div>
-                        <div class="controls">
-                            <button class="btn" id="generate-random">Data Acak</button>
-                            <button class="btn" id="start-bubble">Mulai Bubble Sort</button>
-                            <button class="btn" id="step-bubble">Langkah Berikutnya</button>
-                            <button class="btn" id="reset-bubble">Reset</button>
-                        </div>
-                        <div id="bubble-explanation" class="card">
-                            <h4>Penjelasan Langkah</h4>
-                            <p id="bubble-step-text">Tekan "Mulai Bubble Sort" untuk memulai visualisasi</p>
-                        </div>
+                    <div class="sorting-container" id="bubble-sort-visual">
+                        <!-- Sorting bars will be generated by JavaScript -->
                     </div>
-                </div>
-                
-                <div class="card">
-                    <h3>Selection Sort</h3>
-                    <p>Selection Sort adalah algoritma pengurutan yang mencari elemen terkecil (atau terbesar) dari bagian yang belum diurutkan dan menempatkannya di posisi yang benar.</p>
-                    
-                    <div class="interactive-section">
-                        <h4>Visualisasi Selection Sort</h4>
-                        <div class="sorting-container" id="selection-sort-visual">
-                            <!-- Sorting bars will be generated by JavaScript -->
-                        </div>
-                        <div class="controls">
-                            <button class="btn" id="generate-random-selection">Data Acak</button>
-                            <button class="btn" id="start-selection">Mulai Selection Sort</button>
-                            <button class="btn" id="step-selection">Langkah Berikutnya</button>
-                            <button class="btn" id="reset-selection">Reset</button>
-                        </div>
-                        <div id="selection-explanation" class="card">
-                            <h4>Penjelasan Langkah</h4>
-                            <p id="selection-step-text">Tekan "Mulai Selection Sort" untuk memulai visualisasi</p>
-                        </div>
+                    <div>
+                        <button class="btn" id="generate-random">Data Acak</button>
+                        <button class="btn" id="start-bubble">Mulai Bubble Sort</button>
+                        <button class="btn" id="step-bubble">Langkah Berikutnya</button>
+                    </div>
+                    <div class="card">
+                        <h4>Penjelasan Langkah</h4>
+                        <p id="bubble-step-text">Tekan "Mulai Bubble Sort" untuk memulai visualisasi</p>
                     </div>
                 </div>
             </div>
@@ -540,7 +363,6 @@
                 
                 <div class="card">
                     <h3>Kuis Pra-Pembelajaran</h3>
-                    <p>Jawab pertanyaan-pertanyaan berikut untuk menguji pemahaman awal Anda:</p>
                     
                     <div class="quiz-container">
                         <div class="question">
@@ -551,11 +373,10 @@
                                 <div class="option" data-correct="false">B. Algoritma</div>
                                 <div class="option" data-correct="true">C. Variabel</div>
                                 <div class="option" data-correct="false">D. Tipe Data</div>
-                                <div class="option" data-correct="false">E. Prosesor</div>
                             </div>
                             <div class="result">
                                 <p><strong>Jawaban Benar: C. Variabel</strong></p>
-                                <p>Variabel adalah "kotak" dasar dalam memori yang diberi nama untuk menyimpan satu nilai (seperti angka 90).</p>
+                                <p>Variabel adalah "kotak" dasar dalam memori yang diberi nama untuk menyimpan satu nilai.</p>
                             </div>
                         </div>
                         
@@ -565,8 +386,6 @@
                             <div class="options">
                                 <div class="option" data-correct="false">A. Mencari angka terbesar, yaitu 20.</div>
                                 <div class="option" data-correct="false">B. Menghitung jumlah semua angka.</div>
-                                <div class="option" data-correct="false">C. Menghapus angka yang ganjil.</div>
-                                <div class="option" data-correct="false">D. Menyusun ulang angka menjadi [20, 15, 11, 8].</div>
                                 <div class="option" data-correct="true">E. Menyusun ulang angka menjadi [8, 11, 15, 20].</div>
                             </div>
                             <div class="result">
@@ -574,71 +393,11 @@
                                 <p>Ascending (menaik) berarti mengurutkan dari nilai terkecil ke nilai terbesar.</p>
                             </div>
                         </div>
-                        
-                        <div class="question">
-                            <h4>Soal 3</h4>
-                            <p>Dalam logika algoritma, kita sering membandingkan dua nilai, A dan B. Jika A = 25 dan B = 25, manakah pernyataan logika di bawah ini yang bernilai SALAH?</p>
-                            <div class="options">
-                                <div class="option" data-correct="false">A. A == B (A sama dengan B)</div>
-                                <div class="option" data-correct="false">B. A >= B (A lebih besar atau sama dengan B)</div>
-                                <div class="option" data-correct="false">C. A <= B (A lebih kecil atau sama dengan B)</div>
-                                <div class="option" data-correct="true">D. A != B (A tidak sama dengan B)</div>
-                                <div class="option" data-correct="false">E. B == 25</div>
-                            </div>
-                            <div class="result">
-                                <p><strong>Jawaban Benar: D. A != B (A tidak sama dengan B)</strong></p>
-                                <p>Karena A (25) dan B (25) nilainya sama, maka pernyataan bahwa "A tidak sama dengan B" adalah pernyataan yang SALAH.</p>
-                            </div>
-                        </div>
                     </div>
                     
-                    <div class="controls">
+                    <div>
                         <button class="btn" id="check-answers">Periksa Jawaban</button>
                         <button class="btn" id="reset-quiz">Reset Kuis</button>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h3>Tracing Algoritma</h3>
-                    <p>Latihan menganalisis eksekusi algoritma (tracing):</p>
-                    
-                    <div class="interactive-section">
-                        <h4>Simulasi Tracing Array</h4>
-                        <p>Bayangkan ada 3 kotak penyimpanan yang diberi label (Kotak 1, Kotak 2, Kotak 3).</p>
-                        <p>Kondisi Awal:</p>
-                        <ul>
-                            <li>Kotak 1 berisi "Apel"</li>
-                            <li>Kotak 2 berisi "Jeruk"</li>
-                            <li>Kotak 3 berisi "Mangga"</li>
-                        </ul>
-                        
-                        <p>Ikuti instruksi berikut secara berurutan:</p>
-                        <ol>
-                            <li>Ambil isi Kotak 2, pindahkan ke Kotak 1 (Isi Kotak 1 yang lama terbuang).</li>
-                            <li>Ambil isi Kotak 3, pindahkan ke Kotak 2 (Isi Kotak 2 yang lama terbuang).</li>
-                            <li>Masukkan "Anggur" ke dalam Kotak 3.</li>
-                        </ol>
-                        
-                        <div class="controls">
-                            <button class="btn" id="show-tracing">Tampilkan Tracing</button>
-                        </div>
-                        
-                        <div id="tracing-result" class="card" style="display: none;">
-                            <h4>Hasil Tracing</h4>
-                            <p>Setelah semua instruksi selesai:</p>
-                            <ul>
-                                <li>Kotak 1: "Jeruk"</li>
-                                <li>Kotak 2: "Mangga"</li>
-                                <li>Kotak 3: "Anggur"</li>
-                            </ul>
-                            <p><strong>Penjelasan:</strong></p>
-                            <ul>
-                                <li>Awal: [Apel, Jeruk, Mangga]</li>
-                                <li>Instruksi 1 (Kotak 1 = Kotak 2): [Jeruk, Jeruk, Mangga]</li>
-                                <li>Instruksi 2 (Kotak 2 = Kotak 3): [Jeruk, Mangga, Mangga]</li>
-                                <li>Instruksi 3 (Kotak 3 = "Anggur"): [Jeruk, Mangga, Anggur]</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -648,7 +407,6 @@
     <footer>
         <div class="container">
             <p>&copy; 2023 Analisis Modul Ajar Informatika - SMA Negeri 2 Playen</p>
-            <p>Dibuat untuk mendukung pembelajaran Berpikir Komputasional</p>
         </div>
     </footer>
 
@@ -656,67 +414,12 @@
         // Tab functionality
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 
-                // Add active class to clicked tab and corresponding content
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab).classList.add('active');
             });
-        });
-        
-        // Bloom's Taxonomy interactive section
-        document.getElementById('show-c1').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '25%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C1 - Mengingat (Remember)</h4>
-                <p>Kemampuan untuk mengingat informasi yang telah dipelajari sebelumnya. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Mengingat konsep dasar variabel</li>
-                    <li>Mengingat definisi array</li>
-                    <li>Mengingat nama-nama algoritma pengurutan</li>
-                </ul>
-            `;
-        });
-        
-        document.getElementById('show-c2').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '50%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C2 - Memahami (Understand)</h4>
-                <p>Kemampuan untuk memahami makna informasi. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Memahami konsep pengurutan ascending dan descending</li>
-                    <li>Memahami cara kerja operator perbandingan</li>
-                    <li>Memahami tujuan dari algoritma pengurutan</li>
-                </ul>
-            `;
-        });
-        
-        document.getElementById('show-c3').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '75%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C3 - Mengaplikasikan (Apply)</h4>
-                <p>Kemampuan untuk menggunakan informasi dalam situasi baru. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Menerapkan struktur data array dalam program sederhana</li>
-                    <li>Mensimulasikan langkah-langkah algoritma pengurutan</li>
-                    <li>Menggunakan array untuk menyimpan dan mengelola data</li>
-                </ul>
-            `;
-        });
-        
-        document.getElementById('show-c4').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '100%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C4 - Menganalisis (Analyze)</h4>
-                <p>Kemampuan untuk memecah informasi menjadi bagian-bagian dan memahami hubungan antar bagian. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Menganalisis eksekusi (trace) algoritma</li>
-                    <li>Menyimpulkan hasil akhir dari proses algoritma</li>
-                    <li>Menganalisis perubahan nilai pada array</li>
-                </ul>
-            `;
         });
         
         // Array visualization
@@ -760,56 +463,11 @@
                 arrayData[randomIndex] = Math.floor(Math.random() * 50) + 1;
                 renderArray();
                 
-                // Highlight the updated element
                 const elements = document.querySelectorAll('.array-element');
                 elements[randomIndex].classList.add('active');
                 setTimeout(() => {
                     elements[randomIndex].classList.remove('active');
                 }, 1000);
-            }
-        });
-        
-        document.getElementById('reset-array').addEventListener('click', () => {
-            arrayData = [10, 25, 5, 40, 15];
-            renderArray();
-        });
-        
-        // Leaderboard simulation
-        const leaderboardBody = document.getElementById('leaderboard-body');
-        let players = [
-            { name: "Budi", score: 90 },
-            { name: "Sari", score: 85 },
-            { name: "Andi", score: 95 }
-        ];
-        
-        function renderLeaderboard() {
-            leaderboardBody.innerHTML = '';
-            
-            // Sort players by score (descending)
-            const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-            
-            sortedPlayers.forEach((player, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${index + 1}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${player.name}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${player.score}</td>
-                `;
-                leaderboardBody.appendChild(row);
-            });
-        }
-        
-        document.getElementById('add-player').addEventListener('click', () => {
-            const name = document.getElementById('player-name').value;
-            const score = parseInt(document.getElementById('player-score').value);
-            
-            if (name && !isNaN(score)) {
-                players.push({ name, score });
-                renderLeaderboard();
-                
-                // Clear inputs
-                document.getElementById('player-name').value = '';
-                document.getElementById('player-score').value = '';
             }
         });
         
@@ -830,11 +488,6 @@
                 bar.style.height = `${(value / maxValue) * 100}%`;
                 bar.style.width = `${100 / bubbleData.length}%`;
                 bar.textContent = value;
-                bar.style.display = 'flex';
-                bar.style.alignItems = 'flex-end';
-                bar.style.justifyContent = 'center';
-                bar.style.color = 'white';
-                bar.style.fontWeight = 'bold';
                 bubbleVisual.appendChild(bar);
             });
         }
@@ -850,7 +503,6 @@
             
             for (let j = 0; j < bubbleData.length - bubbleStep - 1; j++) {
                 if (bubbleData[j] > bubbleData[j + 1]) {
-                    // Swap elements
                     [bubbleData[j], bubbleData[j + 1]] = [bubbleData[j + 1], bubbleData[j]];
                     swapped = true;
                     
@@ -889,114 +541,11 @@
             }
         });
         
-        document.getElementById('reset-bubble').addEventListener('click', () => {
-            bubbleData = [40, 20, 60, 10, 50, 30];
-            bubbleStep = 0;
-            bubbleSorting = false;
-            renderBubbleSort();
-            bubbleStepText.textContent = "Bubble Sort telah direset. Tekan 'Mulai Bubble Sort' untuk memulai pengurutan.";
-        });
-        
-        // Selection Sort visualization
-        let selectionData = [40, 20, 60, 10, 50, 30];
-        let selectionStep = 0;
-        let selectionSorting = false;
-        let minIndex = 0;
-        const selectionVisual = document.getElementById('selection-sort-visual');
-        const selectionStepText = document.getElementById('selection-step-text');
-        
-        function renderSelectionSort() {
-            selectionVisual.innerHTML = '';
-            const maxValue = Math.max(...selectionData);
-            
-            selectionData.forEach((value, index) => {
-                const bar = document.createElement('div');
-                bar.className = 'sorting-bar';
-                bar.style.height = `${(value / maxValue) * 100}%`;
-                bar.style.width = `${100 / selectionData.length}%`;
-                bar.textContent = value;
-                bar.style.display = 'flex';
-                bar.style.alignItems = 'flex-end';
-                bar.style.justifyContent = 'center';
-                bar.style.color = 'white';
-                bar.style.fontWeight = 'bold';
-                
-                if (index === minIndex && selectionSorting) {
-                    bar.style.backgroundColor = 'var(--accent)';
-                }
-                
-                selectionVisual.appendChild(bar);
-            });
-        }
-        
-        function selectionSortStep() {
-            if (selectionStep >= selectionData.length - 1) {
-                selectionStepText.textContent = "Pengurutan selesai! Data telah terurut.";
-                selectionSorting = false;
-                return;
-            }
-            
-            // Find the minimum element in the unsorted part
-            minIndex = selectionStep;
-            for (let j = selectionStep + 1; j < selectionData.length; j++) {
-                if (selectionData[j] < selectionData[minIndex]) {
-                    minIndex = j;
-                }
-            }
-            
-            // Swap the found minimum element with the first element
-            if (minIndex !== selectionStep) {
-                [selectionData[selectionStep], selectionData[minIndex]] = [selectionData[minIndex], selectionData[selectionStep]];
-                selectionStepText.textContent = `Menemukan elemen terkecil ${selectionData[selectionStep]} di posisi ${minIndex + 1}. Menukar dengan elemen di posisi ${selectionStep + 1}.`;
-            } else {
-                selectionStepText.textContent = `Elemen di posisi ${selectionStep + 1} sudah merupakan yang terkecil. Tidak perlu penukaran.`;
-            }
-            
-            selectionStep++;
-            renderSelectionSort();
-            
-            if (selectionStep >= selectionData.length - 1) {
-                selectionStepText.textContent = "Pengurutan selesai! Data telah terurut.";
-                selectionSorting = false;
-            }
-        }
-        
-        document.getElementById('generate-random-selection').addEventListener('click', () => {
-            selectionData = Array.from({length: 6}, () => Math.floor(Math.random() * 60) + 10);
-            selectionStep = 0;
-            selectionSorting = false;
-            renderSelectionSort();
-            selectionStepText.textContent = "Data acak telah dibuat. Tekan 'Mulai Selection Sort' untuk memulai pengurutan.";
-        });
-        
-        document.getElementById('start-selection').addEventListener('click', () => {
-            selectionSorting = true;
-            selectionStep = 0;
-            selectionStepText.textContent = "Memulai Selection Sort. Tekan 'Langkah Berikutnya' untuk melanjutkan.";
-        });
-        
-        document.getElementById('step-selection').addEventListener('click', () => {
-            if (selectionSorting) {
-                selectionSortStep();
-            }
-        });
-        
-        document.getElementById('reset-selection').addEventListener('click', () => {
-            selectionData = [40, 20, 60, 10, 50, 30];
-            selectionStep = 0;
-            selectionSorting = false;
-            renderSelectionSort();
-            selectionStepText.textContent = "Selection Sort telah direset. Tekan 'Mulai Selection Sort' untuk memulai pengurutan.";
-        });
-        
         // Quiz functionality
         document.querySelectorAll('.option').forEach(option => {
             option.addEventListener('click', function() {
-                // Remove selected class from all options in this question
                 const options = this.parentElement.querySelectorAll('.option');
                 options.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
                 this.classList.add('selected');
             });
         });
@@ -1012,13 +561,10 @@
                     if (selectedOption.dataset.correct === 'true') {
                         selectedOption.classList.add('correct');
                         resultDiv.classList.add('correct');
-                        resultDiv.classList.remove('incorrect');
                     } else {
                         selectedOption.classList.add('incorrect');
                         resultDiv.classList.add('incorrect');
-                        resultDiv.classList.remove('correct');
                         
-                        // Highlight the correct answer
                         const correctOption = question.querySelector('.option[data-correct="true"]');
                         correctOption.classList.add('correct');
                     }
@@ -1037,16 +583,9 @@
             });
         });
         
-        // Tracing functionality
-        document.getElementById('show-tracing').addEventListener('click', () => {
-            document.getElementById('tracing-result').style.display = 'block';
-        });
-        
         // Initial render
         renderArray();
-        renderLeaderboard();
         renderBubbleSort();
-        renderSelectionSort();
     </script>
 </body>
 </html>
