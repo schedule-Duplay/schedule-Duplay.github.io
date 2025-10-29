@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Pembelajaran Interaktif - Berpikir Komputasional</title>
+    <title>Pembelajaran Daftar Isi Otomatis</title>
     <style>
         :root {
             --primary: #3498db;
-            --secondary: #2ecc71;
-            --accent: #e74c3c;
+            --secondary: #e74c3c;
+            --light: #f9f9f9;
+            --dark: #333;
+            --success: #2ecc71;
             --warning: #f39c12;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --purple: #9b59b6;
-            --orange: #e67e22;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         * {
@@ -31,1252 +27,511 @@
             line-height: 1.6;
         }
         
-        header {
-            background: var(--gradient);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #2980b9);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         .card {
             background: white;
             border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
         
-        h1, h2, h3, h4 {
-            margin-bottom: 1rem;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-        }
-        
-        h2 {
+        .card h2 {
             color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--light);
-            padding-bottom: 0.5rem;
         }
         
-        h3 {
+        .card h3 {
             color: var(--secondary);
+            margin: 15px 0 10px;
         }
         
-        h4 {
-            color: var(--purple);
+        .steps {
+            counter-reset: step-counter;
         }
         
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+        .step {
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
         }
         
-        .btn {
-            display: inline-block;
-            background: var(--primary);
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background-color: var(--primary);
             color: white;
-            padding: 0.7rem 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .interactive-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .document-editor {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 400px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            margin: 0.5rem;
+            transition: all 0.2s ease;
         }
         
-        .btn:hover {
-            background: var(--secondary);
-            transform: scale(1.05);
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
         }
         
         .btn-secondary {
-            background: var(--secondary);
+            background-color: var(--secondary);
+            color: white;
         }
         
         .btn-secondary:hover {
-            background: var(--primary);
+            background-color: #c0392b;
         }
         
-        .btn-accent {
-            background: var(--accent);
-        }
-        
-        .btn-accent:hover {
-            background: var(--orange);
-        }
-        
-        .tab-container {
-            margin: 2rem 0;
-        }
-        
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            border-bottom: 2px solid var(--light);
-            margin-bottom: 1rem;
-        }
-        
-        .tab {
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .tab.active {
-            background: var(--primary);
+        .btn-success {
+            background-color: var(--success);
             color: white;
         }
         
-        .tab-content {
-            display: none;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 0 0 10px 10px;
-            box-shadow: var(--shadow);
-            animation: fadeIn 0.5s ease;
+        .btn-success:hover {
+            background-color: #27ae60;
         }
         
-        .tab-content.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .interactive-section {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-        }
-        
-        .array-visualization {
-            display: flex;
-            justify-content: center;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .array-element {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            border-radius: 5px;
+        .heading-1 {
+            font-size: 1.8rem;
             font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0 10px;
+        }
+        
+        .heading-2 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #34495e;
+            margin: 12px 0 8px;
+            margin-left: 20px;
+        }
+        
+        .heading-3 {
             font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
+            font-weight: bold;
+            color: #5d6d7e;
+            margin: 10px 0 6px;
+            margin-left: 40px;
         }
         
-        .array-element.active {
-            background: var(--accent);
-            transform: scale(1.1);
+        .normal-text {
+            margin: 8px 0;
         }
         
-        .sorting-visualization {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 1.5rem 0;
-        }
-        
-        .sorting-bar {
-            width: 30px;
-            background: var(--primary);
-            margin: 0 2px;
-            transition: all 0.3s ease;
-        }
-        
-        .sorting-container {
-            display: flex;
-            align-items: flex-end;
-            height: 200px;
-            margin: 1rem 0;
-            justify-content: center;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .quiz-container {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            box-shadow: var(--shadow);
-        }
-        
-        .question {
-            margin-bottom: 1.5rem;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .option {
-            padding: 0.8rem;
-            border: 1px solid var(--light);
+        .table-of-contents {
+            border: 1px solid #ddd;
             border-radius: 5px;
+            padding: 20px;
+            background-color: white;
+            margin-top: 20px;
+        }
+        
+        .toc-item {
+            margin: 5px 0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 3px 5px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
         }
         
-        .option:hover {
-            background: var(--light);
+        .toc-item:hover {
+            background-color: #f0f8ff;
         }
         
-        .option.selected {
-            background: var(--primary);
-            color: white;
+        .toc-h1 {
+            font-weight: bold;
+            margin-left: 0;
         }
         
-        .correct {
-            background: var(--secondary) !important;
-            color: white;
+        .toc-h2 {
+            margin-left: 20px;
         }
         
-        .incorrect {
-            background: var(--accent) !important;
-            color: white;
+        .toc-h3 {
+            margin-left: 40px;
+            font-size: 0.9rem;
         }
         
-        .result {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 5px;
-            display: none;
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
         }
         
-        .result.correct {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid var(--secondary);
-        }
-        
-        .result.incorrect {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid var(--accent);
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 4px;
+            border-radius: 3px;
         }
         
         footer {
-            background: var(--dark);
-            color: white;
             text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 2rem;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background: var(--light);
-            border-radius: 5px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 100%;
-            background: var(--secondary);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
-        .profile-pillars {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .pillar {
-            flex: 1;
-            min-width: 150px;
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: var(--shadow);
-        }
-        
-        .pillar-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .learning-objectives {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .objective {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-        
-        .objective-number {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 0.5rem;
-        }
-        
-        .cp-indicator {
-            display: inline-block;
-            background: var(--purple);
-            color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-        }
-        
-        .trace-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-        
-        .trace-table th, .trace-table td {
-            border: 1px solid var(--light);
-            padding: 0.5rem;
-            text-align: center;
-        }
-        
-        .trace-table th {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .trace-table tr:nth-child(even) {
-            background: var(--light);
-        }
-        
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .tab {
-                border-radius: 5px;
-                margin-bottom: 5px;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>Media Pembelajaran Interaktif</h1>
-            <p>Berpikir Komputasional - Struktur Data dan Algoritma</p>
-            <p>SMA Negeri 2 Playen - Kelas X Semester Ganjil</p>
-        </div>
-    </header>
-    
     <div class="container">
-        <div class="card">
-            <h2>Informasi Umum Modul</h2>
-            <div class="grid">
-                <div>
-                    <h3>Sekolah</h3>
-                    <p>SMA Negeri 2 Playen</p>
+        <header>
+            <h1>Pembuatan Daftar Isi Otomatis</h1>
+            <p>Materi Pembelajaran Teknologi Informasi dan Komunikasi</p>
+        </header>
+        
+        <div class="content-grid">
+            <div class="card">
+                <h2>Konsep Daftar Isi Otomatis</h2>
+                <p>Daftar isi otomatis adalah daftar bab dan subbab yang dibuat secara otomatis berdasarkan <span class="highlight">style Heading</span> pada dokumen Word.</p>
+                
+                <div class="note">
+                    <h3>Manfaat Daftar Isi Otomatis:</h3>
+                    <ul>
+                        <li>Tidak perlu mengetik ulang nomor halaman</li>
+                        <li>Dapat diperbarui otomatis saat dokumen berubah</li>
+                        <li>Memudahkan navigasi dalam dokumen yang panjang</li>
+                        <li>Memberikan tampilan profesional pada dokumen</li>
+                    </ul>
                 </div>
-                <div>
-                    <h3>Fase/Kelas/Semester</h3>
-                    <p>E / X / Ganjil</p>
+                
+                <h3>Struktur Heading</h3>
+                <p>Berikut contoh struktur heading yang tepat:</p>
+                <table style="width:100%; border-collapse: collapse; margin-top:10px;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Bagian</th>
+                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Style</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">BAB I PENDAHULUAN</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Heading 1</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">1.1 Latar Belakang</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Heading 2</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">1.2 Tujuan</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Heading 2</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">2.1 Waktu dan Tempat</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Heading 2</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="card">
+                <h2>Langkah-Langkah Praktis</h2>
+                <div class="steps">
+                    <div class="step">
+                        <h3>Terapkan Heading Style</h3>
+                        <p>Pilih judul bab/subbab, lalu pilih <span class="highlight">Heading 1</span>, <span class="highlight">Heading 2</span>, atau <span class="highlight">Heading 3</span> dari Styles gallery di tab Home.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <h3>Buat Daftar Isi</h3>
+                        <p>Posisikan kursor di tempat daftar isi akan ditampilkan. Buka tab <span class="highlight">References</span> → <span class="highlight">Table of Contents</span> → Pilih <span class="highlight">Automatic Table 1</span>.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <h3>Perbarui Daftar Isi</h3>
+                        <p>Jika ada perubahan pada dokumen, klik kanan pada daftar isi dan pilih <span class="highlight">Update Field</span> → <span class="highlight">Update Entire Table</span>.</p>
+                    </div>
                 </div>
-                <div>
-                    <h3>Mata Pelajaran</h3>
-                    <p>Informatika</p>
-                </div>
-                <div>
-                    <h3>Alokasi Waktu</h3>
-                    <p>2 JP x 40 Menit</p>
-                </div>
-                <div>
-                    <h3>Jumlah Murid</h3>
-                    <p>36 Orang</p>
+                
+                <div class="note">
+                    <h3>Tips Penting:</h3>
+                    <ul>
+                        <li>Gunakan Heading 1 untuk bab utama</li>
+                        <li>Gunakan Heading 2 untuk subbab</li>
+                        <li>Gunakan Heading 3 untuk sub-subbab jika diperlukan</li>
+                        <li>Pastikan semua judul telah diberi style heading sebelum membuat daftar isi</li>
+                    </ul>
                 </div>
             </div>
         </div>
         
-        <div class="tab-container">
-            <div class="tabs">
-                <div class="tab active" data-tab="overview">Gambaran Umum</div>
-                <div class="tab" data-tab="cp-tp">CP & TP</div>
-                <div class="tab" data-tab="array">Struktur Data Array</div>
-                <div class="tab" data-tab="sorting">Algoritma Pengurutan</div>
-                <div class="tab" data-tab="tracing">Tracing Algoritma</div>
-                <div class="tab" data-tab="assessment">Asesmen</div>
+        <div class="interactive-section">
+            <h2>Simulasi Pembuatan Daftar Isi Otomatis</h2>
+            <p>Praktekkan langsung dengan simulasi di bawah ini:</p>
+            
+            <div class="toolbar">
+                <button class="btn-primary" onclick="applyHeading(1)">Terapkan Heading 1</button>
+                <button class="btn-primary" onclick="applyHeading(2)">Terapkan Heading 2</button>
+                <button class="btn-primary" onclick="applyHeading(3)">Terapkan Heading 3</button>
+                <button class="btn-secondary" onclick="generateTOC()">Buat Daftar Isi</button>
+                <button class="btn-success" onclick="updateTOC()">Perbarui Daftar Isi</button>
+                <button class="btn-secondary" onclick="resetDocument()">Reset Dokumen</button>
             </div>
             
-            <div class="tab-content active" id="overview">
-                <h2>Gambaran Umum Modul</h2>
-                <p>Modul ini membahas tentang <strong>Berpikir Komputasional</strong> dengan fokus pada:</p>
-                <ul>
-                    <li>Konsep struktur data array</li>
-                    <li>Algoritma pengurutan standar (bubble sort, selection sort)</li>
-                    <li>Analisis eksekusi algoritma (tracing)</li>
-                </ul>
-                
-                <div class="interactive-section">
-                    <h3>Profil Pelajar Pancasila</h3>
-                    <div class="profile-pillars">
-                        <div class="pillar">
-                            <div class="pillar-icon">🙏</div>
-                            <h4>Keimanan dan Ketakwaan</h4>
-                            <p>Menumbuhkan rasa syukur atas kemampuan berpikir yang diberikan Tuhan</p>
-                        </div>
-                        <div class="pillar">
-                            <div class="pillar-icon">🌍</div>
-                            <h4>Kewargaan Global</h4>
-                            <p>Memahami penerapan algoritma dalam kehidupan sehari-hari</p>
-                        </div>
-                        <div class="pillar">
-                            <div class="pillar-icon">💡</div>
-                            <h4>Penalaran Kritis</h4>
-                            <p>Mengembangkan kemampuan analisis dalam pemecahan masalah</p>
-                        </div>
-                        <div class="pillar">
-                            <div class="pillar-icon">🎨</div>
-                            <h4>Kreativitas</h4>
-                            <p>Mengembangkan solusi kreatif dalam pemecahan masalah</p>
-                        </div>
-                        <div class="pillar">
-                            <div class="pillar-icon">👥</div>
-                            <h4>Kolaborasi</h4>
-                            <p>Bekerja sama dalam kelompok untuk menyelesaikan masalah</p>
-                        </div>
-                        <div class="pillar">
-                            <div class="pillar-icon">💪</div>
-                            <h4>Kemandirian</h4>
-                            <p>Mengembangkan kemampuan belajar mandiri</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h3>Praktik Pedagogis</h3>
-                    <p><strong>Model:</strong> Problem-Based Learning (PBL)</p>
-                    <p><strong>Metode:</strong></p>
-                    <ul>
-                        <li>Studi Kasus: Menganalisis masalah nyata</li>
-                        <li>Diskusi Kelompok & Tanya Jawab</li>
-                        <li>Simulasi (Unplugged Activity)</li>
-                        <li>Penyelidikan (Inquiry)</li>
-                        <li>Praktikum (Coding) & Debugging</li>
-                    </ul>
-                </div>
+            <div class="document-editor" id="documentEditor" contenteditable="true">
+                <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
+                <div class="normal-text">Ini adalah contoh dokumen untuk mempraktikkan pembuatan daftar isi otomatis.</div>
+                <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
+                <div class="normal-text">Pilih teks di atas dan klik tombol Heading untuk menerapkan style.</div>
+                <div class="heading-2" data-heading="2">1.2 Tujuan</div>
+                <div class="normal-text">Setelah menerapkan style, klik "Buat Daftar Isi" untuk melihat hasilnya.</div>
+                <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
+                <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat</div>
+                <div class="normal-text">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025.</div>
+                <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
+                <div class="normal-text">Peserta terdiri dari seluruh pengurus OSIS.</div>
             </div>
             
-            <div class="tab-content" id="cp-tp">
-                <h2>Capaian Pembelajaran & Tujuan Pembelajaran</h2>
-                
-                <div class="card">
-                    <h3>Capaian Pembelajaran</h3>
-                    <p>Memahami konsep struktur data dan algoritma standar</p>
-                </div>
-                
-                <div class="card">
-                    <h3>Tujuan Pembelajaran</h3>
-                    <div class="learning-objectives">
-                        <div class="objective">
-                            <span class="objective-number">1</span>
-                            <span class="cp-indicator">C3 - Mengaplikasikan</span>
-                            <p><strong>Peserta Didik mampu menerapkan struktur data array</strong> untuk menyimpan dan mengelola data dalam program sederhana dengan baik dan benar.</p>
-                        </div>
-                        <div class="objective">
-                            <span class="objective-number">2</span>
-                            <span class="cp-indicator">C3 - Mengaplikasikan</span>
-                            <p><strong>Peserta Didik mampu mensimulasikan langkah-langkah algoritma pengurutan standar</strong> (misal: bubble sort atau selection sort) pada sekumpulan data dengan tepat.</p>
-                        </div>
-                        <div class="objective">
-                            <span class="objective-number">3</span>
-                            <span class="cp-indicator">C4 - Menganalisis</span>
-                            <p><strong>Peserta Didik mampu menganalisis eksekusi (trace) algoritma</strong> pencarian atau pengurutan untuk menyimpulkan hasil akhir dari sebuah kasus data dengan baik dan benar.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-section">
-                    <h3>Keterkaitan dengan Taksonomi Bloom</h3>
-                    <div class="progress-bar">
-                        <div class="progress" id="bloom-progress"></div>
-                    </div>
-                    <div class="controls">
-                        <button class="btn" id="show-c1">C1 (Mengingat)</button>
-                        <button class="btn" id="show-c2">C2 (Memahami)</button>
-                        <button class="btn" id="show-c3">C3 (Mengaplikasikan)</button>
-                        <button class="btn" id="show-c4">C4 (Menganalisis)</button>
-                    </div>
-                    <div id="bloom-explanation" class="card">
-                        <p>Pilih level taksonomi Bloom untuk melihat penjelasan</p>
-                    </div>
-                </div>
+            <div class="table-of-contents" id="tableOfContents">
+                <h3>Daftar Isi</h3>
+                <p>Klik "Buat Daftar Isi" untuk menampilkan daftar isi otomatis di sini.</p>
             </div>
+        </div>
+        
+        <div class="card" style="margin-top: 30px;">
+            <h2>Praktik Mandiri</h2>
+            <p>Setelah memahami konsep dan mencoba simulasi, sekarang saatnya praktik langsung:</p>
             
-            <div class="tab-content" id="array">
-                <h2>Struktur Data Array</h2>
-                
-                <div class="card">
-                    <h3>Apa itu Array?</h3>
-                    <p>Array adalah struktur data yang digunakan untuk menyimpan sekumpulan data dengan tipe yang sama dalam satu variabel.</p>
-                    
-                    <div class="interactive-section">
-                        <h4>Visualisasi Array</h4>
-                        <div class="array-visualization" id="array-visual">
-                            <!-- Array elements will be generated by JavaScript -->
-                        </div>
-                        <div class="controls">
-                            <button class="btn" id="add-element">Tambah Elemen</button>
-                            <button class="btn" id="remove-element">Hapus Elemen</button>
-                            <button class="btn" id="update-element">Update Elemen</button>
-                            <button class="btn" id="reset-array">Reset Array</button>
-                        </div>
-                        <div id="array-code" class="card">
-                            <h4>Kode Array</h4>
-                            <pre id="code-display">// Kode array akan muncul di sini</pre>
-                        </div>
-                    </div>
+            <div class="steps">
+                <div class="step">
+                    <h3>Download dan Buka File</h3>
+                    <p>Download file "LKPD - Teknologi Informasi Dan Komunikasi" dari Google Classroom.</p>
                 </div>
                 
-                <div class="card">
-                    <h3>Contoh Penerapan Array</h3>
-                    <p>Array dapat digunakan untuk menyimpan data seperti:</p>
-                    <ul>
-                        <li>Daftar nilai siswa</li>
-                        <li>Data penjualan harian</li>
-                        <li>Kumpulan nama peserta</li>
-                    </ul>
-                    
-                    <div class="interactive-section">
-                        <h4>Simulasi Leaderboard</h4>
-                        <p>Masukkan nama dan skor untuk membuat leaderboard:</p>
-                        <div class="controls">
-                            <input type="text" id="player-name" placeholder="Nama Pemain">
-                            <input type="number" id="player-score" placeholder="Skor">
-                            <button class="btn" id="add-player">Tambah Pemain</button>
-                        </div>
-                        <div id="leaderboard" class="card">
-                            <h4>Leaderboard</h4>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Peringkat</th>
-                                        <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Nama</th>
-                                        <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Skor</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="leaderboard-body">
-                                    <!-- Leaderboard rows will be generated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="sorting">
-                <h2>Algoritma Pengurutan</h2>
-                
-                <div class="card">
-                    <h3>Bubble Sort</h3>
-                    <p>Bubble Sort adalah algoritma pengurutan sederhana yang berulang kali membandingkan elemen yang berdekatan dan menukarnya jika urutannya salah.</p>
-                    
-                    <div class="interactive-section">
-                        <h4>Visualisasi Bubble Sort</h4>
-                        <div class="sorting-container" id="bubble-sort-visual">
-                            <!-- Sorting bars will be generated by JavaScript -->
-                        </div>
-                        <div class="controls">
-                            <button class="btn" id="generate-random">Data Acak</button>
-                            <button class="btn" id="start-bubble">Mulai Bubble Sort</button>
-                            <button class="btn" id="step-bubble">Langkah Berikutnya</button>
-                            <button class="btn" id="reset-bubble">Reset</button>
-                        </div>
-                        <div id="bubble-explanation" class="card">
-                            <h4>Penjelasan Langkah</h4>
-                            <p id="bubble-step-text">Tekan "Mulai Bubble Sort" untuk memulai visualisasi</p>
-                        </div>
-                    </div>
+                <div class="step">
+                    <h3>Lengkapi LKPD</h3>
+                    <p>Lengkapi LKPD sesuai dengan petunjuk dan gambar yang tersedia di Google Classroom.</p>
                 </div>
                 
-                <div class="card">
-                    <h3>Selection Sort</h3>
-                    <p>Selection Sort adalah algoritma pengurutan yang mencari elemen terkecil (atau terbesar) dari bagian yang belum diurutkan dan menempatkannya di posisi yang benar.</p>
-                    
-                    <div class="interactive-section">
-                        <h4>Visualisasi Selection Sort</h4>
-                        <div class="sorting-container" id="selection-sort-visual">
-                            <!-- Sorting bars will be generated by JavaScript -->
-                        </div>
-                        <div class="controls">
-                            <button class="btn" id="generate-random-selection">Data Acak</button>
-                            <button class="btn" id="start-selection">Mulai Selection Sort</button>
-                            <button class="btn" id="step-selection">Langkah Berikutnya</button>
-                            <button class="btn" id="reset-selection">Reset</button>
-                        </div>
-                        <div id="selection-explanation" class="card">
-                            <h4>Penjelasan Langkah</h4>
-                            <p id="selection-step-text">Tekan "Mulai Selection Sort" untuk memulai visualisasi</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tracing">
-                <h2>Tracing Algoritma</h2>
-                
-                <div class="card">
-                    <h3>Konsep Tracing</h3>
-                    <p>Tracing adalah proses menganalisis eksekusi algoritma langkah demi langkah untuk memahami cara kerjanya dan memverifikasi hasilnya.</p>
-                    
-                    <div class="interactive-section">
-                        <h4>Simulasi Tracing Array</h4>
-                        <p>Bayangkan ada 3 kotak penyimpanan yang diberi label (Kotak 1, Kotak 2, Kotak 3).</p>
-                        <p>Kondisi Awal:</p>
-                        <ul>
-                            <li>Kotak 1 berisi "Apel"</li>
-                            <li>Kotak 2 berisi "Jeruk"</li>
-                            <li>Kotak 3 berisi "Mangga"</li>
-                        </ul>
-                        
-                        <p>Ikuti instruksi berikut secara berurutan:</p>
-                        <ol>
-                            <li>Ambil isi Kotak 2, pindahkan ke Kotak 1 (Isi Kotak 1 yang lama terbuang).</li>
-                            <li>Ambil isi Kotak 3, pindahkan ke Kotak 2 (Isi Kotak 2 yang lama terbuang).</li>
-                            <li>Masukkan "Anggur" ke dalam Kotak 3.</li>
-                        </ol>
-                        
-                        <div class="controls">
-                            <button class="btn" id="show-tracing">Tampilkan Tracing</button>
-                            <button class="btn" id="reset-tracing">Reset Tracing</button>
-                        </div>
-                        
-                        <div id="tracing-result" class="card" style="display: none;">
-                            <h4>Hasil Tracing</h4>
-                            <p>Setelah semua instruksi selesai:</p>
-                            <ul>
-                                <li>Kotak 1: "Jeruk"</li>
-                                <li>Kotak 2: "Mangga"</li>
-                                <li>Kotak 3: "Anggur"</li>
-                            </ul>
-                            <p><strong>Penjelasan:</strong></p>
-                            <table class="trace-table">
-                                <tr>
-                                    <th>Langkah</th>
-                                    <th>Kotak 1</th>
-                                    <th>Kotak 2</th>
-                                    <th>Kotak 3</th>
-                                </tr>
-                                <tr>
-                                    <td>Awal</td>
-                                    <td>Apel</td>
-                                    <td>Jeruk</td>
-                                    <td>Mangga</td>
-                                </tr>
-                                <tr>
-                                    <td>Instruksi 1</td>
-                                    <td>Jeruk</td>
-                                    <td>Jeruk</td>
-                                    <td>Mangga</td>
-                                </tr>
-                                <tr>
-                                    <td>Instruksi 2</td>
-                                    <td>Jeruk</td>
-                                    <td>Mangga</td>
-                                    <td>Mangga</td>
-                                </tr>
-                                <tr>
-                                    <td>Instruksi 3</td>
-                                    <td>Jeruk</td>
-                                    <td>Mangga</td>
-                                    <td>Anggur</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                <div class="step">
+                    <h3>Terapkan Heading Styles</h3>
+                    <p>Pada lembar kerja, terapkan konsep Heading Styles yang telah dipelajari.</p>
                 </div>
                 
-                <div class="card">
-                    <h3>Tracing Bubble Sort</h3>
-                    <p>Perhatikan daftar angka: [10, 5, 12]. Kita akan merapikannya menggunakan "Aturan Satu Putaran" Bubble Sort:</p>
-                    <ul>
-                        <li><strong>Langkah A:</strong> Bandingkan angka di posisi pertama (10) dan kedua (5). Jika angka pertama lebih besar, tukar posisi keduanya.</li>
-                        <li><strong>Langkah B:</strong> Bandingkan angka di posisi kedua (yang sekarang) dengan angka di posisi ketiga (12). Jika angka kedua lebih besar, tukar posisi keduanya.</li>
-                    </ul>
-                    
-                    <div class="controls">
-                        <button class="btn" id="trace-bubble">Tampilkan Tracing Bubble Sort</button>
-                    </div>
-                    
-                    <div id="bubble-trace-result" class="card" style="display: none;">
-                        <h4>Hasil Tracing Bubble Sort</h4>
-                        <p>Kondisi akhir: [5, 10, 12]</p>
-                        <p><strong>Penjelasan:</strong></p>
-                        <table class="trace-table">
-                            <tr>
-                                <th>Langkah</th>
-                                <th>Posisi 1</th>
-                                <th>Posisi 2</th>
-                                <th>Posisi 3</th>
-                                <th>Penjelasan</th>
-                            </tr>
-                            <tr>
-                                <td>Awal</td>
-                                <td>10</td>
-                                <td>5</td>
-                                <td>12</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>Langkah A</td>
-                                <td>5</td>
-                                <td>10</td>
-                                <td>12</td>
-                                <td>10 > 5, jadi ditukar</td>
-                            </tr>
-                            <tr>
-                                <td>Langkah B</td>
-                                <td>5</td>
-                                <td>10</td>
-                                <td>12</td>
-                                <td>10 > 12? Tidak, biarkan</td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="step">
+                    <h3>Buat Daftar Isi Otomatis</h3>
+                    <p>Buat daftar isi otomatis berdasarkan heading yang telah diterapkan.</p>
                 </div>
-            </div>
-            
-            <div class="tab-content" id="assessment">
-                <h2>Asesmen Pembelajaran</h2>
                 
-                <div class="card">
-                    <h3>Kuis Pra-Pembelajaran</h3>
-                    <p>Jawab pertanyaan-pertanyaan berikut untuk menguji pemahaman awal Anda:</p>
-                    
-                    <div class="quiz-container">
-                        <div class="question">
-                            <h4>Soal 1</h4>
-                            <p>Dalam pemrograman, jika Anda ingin menyimpan satu data, misalnya skor nilai ulangan Budi yaitu 90, Anda akan menyimpannya dalam sebuah "wadah" bernama yang disebut...</p>
-                            <div class="options">
-                                <div class="option" data-correct="false">A. Array</div>
-                                <div class="option" data-correct="false">B. Algoritma</div>
-                                <div class="option" data-correct="true">C. Variabel</div>
-                                <div class="option" data-correct="false">D. Tipe Data</div>
-                                <div class="option" data-correct="false">E. Prosesor</div>
-                            </div>
-                            <div class="result">
-                                <p><strong>Jawaban Benar: C. Variabel</strong></p>
-                                <p>Variabel adalah "kotak" dasar dalam memori yang diberi nama untuk menyimpan satu nilai (seperti angka 90). Pemahaman ini fundamental sebelum siswa belajar "Array" sebagai "kotak" yang bisa menyimpan banyak nilai.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="question">
-                            <h4>Soal 2</h4>
-                            <p>Diberikan sekumpulan angka acak: [15, 8, 20, 11]. Apakah yang dimaksud dengan mengurutkan data tersebut secara ascending (menaik)?</p>
-                            <div class="options">
-                                <div class="option" data-correct="false">A. Mencari angka terbesar, yaitu 20.</div>
-                                <div class="option" data-correct="false">B. Menghitung jumlah semua angka.</div>
-                                <div class="option" data-correct="false">C. Menghapus angka yang ganjil.</div>
-                                <div class="option" data-correct="false">D. Menyusun ulang angka menjadi [20, 15, 11, 8].</div>
-                                <div class="option" data-correct="true">E. Menyusun ulang angka menjadi [8, 11, 15, 20].</div>
-                            </div>
-                            <div class="result">
-                                <p><strong>Jawaban Benar: E. Menyusun ulang angka menjadi [8, 11, 15, 20]</strong></p>
-                                <p>Ascending (menaik) berarti mengurutkan dari nilai terkecil ke nilai terbesar. Ini menguji apakah siswa paham tujuan dari algoritma pengurutan (TP 2) sebelum mereka belajar caranya.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="question">
-                            <h4>Soal 3</h4>
-                            <p>Dalam logika algoritma, kita sering membandingkan dua nilai, A dan B. Jika A = 25 dan B = 25, manakah pernyataan logika di bawah ini yang bernilai SALAH?</p>
-                            <div class="options">
-                                <div class="option" data-correct="false">A. A == B (A sama dengan B)</div>
-                                <div class="option" data-correct="false">B. A >= B (A lebih besar atau sama dengan B)</div>
-                                <div class="option" data-correct="false">C. A <= B (A lebih kecil atau sama dengan B)</div>
-                                <div class="option" data-correct="true">D. A != B (A tidak sama dengan B)</div>
-                                <div class="option" data-correct="false">E. B == 25</div>
-                            </div>
-                            <div class="result">
-                                <p><strong>Jawaban Benar: D. A != B (A tidak sama dengan B)</strong></p>
-                                <p>Karena A (25) dan B (25) nilainya sama, maka pernyataan bahwa "A tidak sama dengan B" adalah pernyataan yang SALAH. Kemampuan logika perbandingan ini adalah inti dari algoritma sorting dan searching (TP 2 & 3).</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="controls">
-                        <button class="btn" id="check-answers">Periksa Jawaban</button>
-                        <button class="btn" id="reset-quiz">Reset Kuis</button>
-                    </div>
+                <div class="step">
+                    <h3>Kumpulkan Tugas</h3>
+                    <p>Kumpulkan tugas yang telah selesai pada Google Classroom.</p>
                 </div>
             </div>
         </div>
+        
+        <footer>
+            <p>Materi Pembelajaran Teknologi Informasi dan Komunikasi - SMA Negeri 2 Playen</p>
+            <p>&copy; 2025 - Dibuat untuk keperluan pembelajaran</p>
+        </footer>
     </div>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Media Pembelajaran Interaktif - SMA Negeri 2 Playen</p>
-            <p>Dibuat untuk mendukung pembelajaran Berpikir Komputasional</p>
-        </div>
-    </footer>
 
     <script>
-        // Tab functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        let selectedElement = null;
+        
+        // Fungsi untuk menerapkan heading style
+        function applyHeading(level) {
+            if (selectedElement) {
+                // Hapus class heading sebelumnya
+                selectedElement.classList.remove('heading-1', 'heading-2', 'heading-3', 'normal-text');
                 
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.tab).classList.add('active');
-            });
-        });
-        
-        // Bloom's Taxonomy interactive section
-        document.getElementById('show-c1').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '25%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C1 - Mengingat (Remember)</h4>
-                <p>Kemampuan untuk mengingat informasi yang telah dipelajari sebelumnya. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Mengingat konsep dasar variabel</li>
-                    <li>Mengingat definisi array</li>
-                    <li>Mengingat nama-nama algoritma pengurutan</li>
-                </ul>
-            `;
-        });
-        
-        document.getElementById('show-c2').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '50%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C2 - Memahami (Understand)</h4>
-                <p>Kemampuan untuk memahami makna informasi. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Memahami konsep pengurutan ascending dan descending</li>
-                    <li>Memahami cara kerja operator perbandingan</li>
-                    <li>Memahami tujuan dari algoritma pengurutan</li>
-                </ul>
-            `;
-        });
-        
-        document.getElementById('show-c3').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '75%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C3 - Mengaplikasikan (Apply)</h4>
-                <p>Kemampuan untuk menggunakan informasi dalam situasi baru. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Menerapkan struktur data array dalam program sederhana</li>
-                    <li>Mensimulasikan langkah-langkah algoritma pengurutan</li>
-                    <li>Menggunakan array untuk menyimpan dan mengelola data</li>
-                </ul>
-            `;
-        });
-        
-        document.getElementById('show-c4').addEventListener('click', () => {
-            document.getElementById('bloom-progress').style.width = '100%';
-            document.getElementById('bloom-explanation').innerHTML = `
-                <h4>C4 - Menganalisis (Analyze)</h4>
-                <p>Kemampuan untuk memecah informasi menjadi bagian-bagian dan memahami hubungan antar bagian. Contoh dalam modul ini:</p>
-                <ul>
-                    <li>Menganalisis eksekusi (trace) algoritma</li>
-                    <li>Menyimpulkan hasil akhir dari proses algoritma</li>
-                    <li>Menganalisis perubahan nilai pada array</li>
-                </ul>
-            `;
-        });
-        
-        // Array visualization
-        let arrayData = [10, 25, 5, 40, 15];
-        const arrayVisual = document.getElementById('array-visual');
-        const codeDisplay = document.getElementById('code-display');
-        
-        function renderArray() {
-            arrayVisual.innerHTML = '';
-            arrayData.forEach((value, index) => {
-                const element = document.createElement('div');
-                element.className = 'array-element';
-                element.textContent = value;
-                element.dataset.index = index;
-                arrayVisual.appendChild(element);
-            });
-            
-            updateCodeDisplay();
+                // Tambahkan class heading yang baru
+                selectedElement.classList.add(`heading-${level}`);
+                selectedElement.setAttribute('data-heading', level);
+                
+                // Update tampilan daftar isi jika sudah dibuat
+                if (document.querySelectorAll('.toc-item').length > 0) {
+                    updateTOC();
+                }
+            } else {
+                alert('Pilih teks terlebih dahulu dengan mengklik pada bagian dokumen!');
+            }
         }
         
-        function updateCodeDisplay() {
-            codeDisplay.textContent = `let scores = [${arrayData.join(', ')}];`;
-        }
-        
-        document.getElementById('add-element').addEventListener('click', () => {
-            const newValue = Math.floor(Math.random() * 50) + 1;
-            arrayData.push(newValue);
-            renderArray();
-        });
-        
-        document.getElementById('remove-element').addEventListener('click', () => {
-            if (arrayData.length > 0) {
-                arrayData.pop();
-                renderArray();
+        // Fungsi untuk menghasilkan daftar isi
+        function generateTOC() {
+            const headings = document.querySelectorAll('[data-heading]');
+            const tocContainer = document.getElementById('tableOfContents');
+            
+            if (headings.length === 0) {
+                tocContainer.innerHTML = '<p>Tidak ada heading yang ditemukan. Terapkan heading style terlebih dahulu.</p>';
+                return;
             }
-        });
-        
-        document.getElementById('update-element').addEventListener('click', () => {
-            if (arrayData.length > 0) {
-                const randomIndex = Math.floor(Math.random() * arrayData.length);
-                arrayData[randomIndex] = Math.floor(Math.random() * 50) + 1;
-                renderArray();
+            
+            let tocHTML = '<h3>Daftar Isi</h3>';
+            
+            headings.forEach((heading, index) => {
+                const level = heading.getAttribute('data-heading');
+                const text = heading.textContent;
                 
-                const elements = document.querySelectorAll('.array-element');
-                elements[randomIndex].classList.add('active');
-                setTimeout(() => {
-                    elements[randomIndex].classList.remove('active');
-                }, 1000);
-            }
-        });
-        
-        document.getElementById('reset-array').addEventListener('click', () => {
-            arrayData = [10, 25, 5, 40, 15];
-            renderArray();
-        });
-        
-        // Leaderboard simulation
-        const leaderboardBody = document.getElementById('leaderboard-body');
-        let players = [
-            { name: "Budi", score: 90 },
-            { name: "Sari", score: 85 },
-            { name: "Andi", score: 95 }
-        ];
-        
-        function renderLeaderboard() {
-            leaderboardBody.innerHTML = '';
-            
-            const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-            
-            sortedPlayers.forEach((player, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${index + 1}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${player.name}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${player.score}</td>
+                tocHTML += `
+                    <div class="toc-item toc-h${level}" data-index="${index}">
+                        ${text}
+                    </div>
                 `;
-                leaderboardBody.appendChild(row);
             });
-        }
-        
-        document.getElementById('add-player').addEventListener('click', () => {
-            const name = document.getElementById('player-name').value;
-            const score = parseInt(document.getElementById('player-score').value);
             
-            if (name && !isNaN(score)) {
-                players.push({ name, score });
-                renderLeaderboard();
-                
-                document.getElementById('player-name').value = '';
-                document.getElementById('player-score').value = '';
-            }
-        });
-        
-        // Bubble Sort visualization
-        let bubbleData = [40, 20, 60, 10, 50, 30];
-        let bubbleStep = 0;
-        let bubbleSorting = false;
-        const bubbleVisual = document.getElementById('bubble-sort-visual');
-        const bubbleStepText = document.getElementById('bubble-step-text');
-        
-        function renderBubbleSort() {
-            bubbleVisual.innerHTML = '';
-            const maxValue = Math.max(...bubbleData);
+            tocContainer.innerHTML = tocHTML;
             
-            bubbleData.forEach((value, index) => {
-                const bar = document.createElement('div');
-                bar.className = 'sorting-bar';
-                bar.style.height = `${(value / maxValue) * 100}%`;
-                bar.style.width = `${100 / bubbleData.length}%`;
-                bar.textContent = value;
-                bar.style.display = 'flex';
-                bar.style.alignItems = 'flex-end';
-                bar.style.justifyContent = 'center';
-                bar.style.color = 'white';
-                bar.style.fontWeight = 'bold';
-                bubbleVisual.appendChild(bar);
-            });
-        }
-        
-        function bubbleSortStep() {
-            if (bubbleStep >= bubbleData.length - 1) {
-                bubbleStepText.textContent = "Pengurutan selesai! Data telah terurut.";
-                bubbleSorting = false;
-                return;
-            }
-            
-            let swapped = false;
-            
-            for (let j = 0; j < bubbleData.length - bubbleStep - 1; j++) {
-                if (bubbleData[j] > bubbleData[j + 1]) {
-                    [bubbleData[j], bubbleData[j + 1]] = [bubbleData[j + 1], bubbleData[j]];
-                    swapped = true;
+            // Tambahkan event listener untuk item daftar isi
+            document.querySelectorAll('.toc-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const targetHeading = headings[index];
                     
-                    bubbleStepText.textContent = `Membandingkan ${bubbleData[j+1]} dan ${bubbleData[j]}. Karena ${bubbleData[j+1]} > ${bubbleData[j]}, menukar posisi.`;
-                    renderBubbleSort();
-                    return;
-                }
-            }
-            
-            if (!swapped) {
-                bubbleStepText.textContent = "Tidak ada pertukaran pada putaran ini. Pengurutan selesai!";
-                bubbleSorting = false;
-            } else {
-                bubbleStep++;
-                bubbleStepText.textContent = `Memulai putaran ${bubbleStep + 1}`;
-            }
-        }
-        
-        document.getElementById('generate-random').addEventListener('click', () => {
-            bubbleData = Array.from({length: 6}, () => Math.floor(Math.random() * 60) + 10);
-            bubbleStep = 0;
-            bubbleSorting = false;
-            renderBubbleSort();
-            bubbleStepText.textContent = "Data acak telah dibuat. Tekan 'Mulai Bubble Sort' untuk memulai pengurutan.";
-        });
-        
-        document.getElementById('start-bubble').addEventListener('click', () => {
-            bubbleSorting = true;
-            bubbleStep = 0;
-            bubbleStepText.textContent = "Memulai Bubble Sort. Tekan 'Langkah Berikutnya' untuk melanjutkan.";
-        });
-        
-        document.getElementById('step-bubble').addEventListener('click', () => {
-            if (bubbleSorting) {
-                bubbleSortStep();
-            }
-        });
-        
-        document.getElementById('reset-bubble').addEventListener('click', () => {
-            bubbleData = [40, 20, 60, 10, 50, 30];
-            bubbleStep = 0;
-            bubbleSorting = false;
-            renderBubbleSort();
-            bubbleStepText.textContent = "Bubble Sort telah direset. Tekan 'Mulai Bubble Sort' untuk memulai pengurutan.";
-        });
-        
-        // Selection Sort visualization
-        let selectionData = [40, 20, 60, 10, 50, 30];
-        let selectionStep = 0;
-        let selectionSorting = false;
-        let minIndex = 0;
-        const selectionVisual = document.getElementById('selection-sort-visual');
-        const selectionStepText = document.getElementById('selection-step-text');
-        
-        function renderSelectionSort() {
-            selectionVisual.innerHTML = '';
-            const maxValue = Math.max(...selectionData);
-            
-            selectionData.forEach((value, index) => {
-                const bar = document.createElement('div');
-                bar.className = 'sorting-bar';
-                bar.style.height = `${(value / maxValue) * 100}%`;
-                bar.style.width = `${100 / selectionData.length}%`;
-                bar.textContent = value;
-                bar.style.display = 'flex';
-                bar.style.alignItems = 'flex-end';
-                bar.style.justifyContent = 'center';
-                bar.style.color = 'white';
-                bar.style.fontWeight = 'bold';
-                
-                if (index === minIndex && selectionSorting) {
-                    bar.style.backgroundColor = 'var(--accent)';
-                }
-                
-                selectionVisual.appendChild(bar);
-            });
-        }
-        
-        function selectionSortStep() {
-            if (selectionStep >= selectionData.length - 1) {
-                selectionStepText.textContent = "Pengurutan selesai! Data telah terurut.";
-                selectionSorting = false;
-                return;
-            }
-            
-            minIndex = selectionStep;
-            for (let j = selectionStep + 1; j < selectionData.length; j++) {
-                if (selectionData[j] < selectionData[minIndex]) {
-                    minIndex = j;
-                }
-            }
-            
-            if (minIndex !== selectionStep) {
-                [selectionData[selectionStep], selectionData[minIndex]] = [selectionData[minIndex], selectionData[selectionStep]];
-                selectionStepText.textContent = `Menemukan elemen terkecil ${selectionData[selectionStep]} di posisi ${minIndex + 1}. Menukar dengan elemen di posisi ${selectionStep + 1}.`;
-            } else {
-                selectionStepText.textContent = `Elemen di posisi ${selectionStep + 1} sudah merupakan yang terkecil. Tidak perlu penukaran.`;
-            }
-            
-            selectionStep++;
-            renderSelectionSort();
-            
-            if (selectionStep >= selectionData.length - 1) {
-                selectionStepText.textContent = "Pengurutan selesai! Data telah terurut.";
-                selectionSorting = false;
-            }
-        }
-        
-        document.getElementById('generate-random-selection').addEventListener('click', () => {
-            selectionData = Array.from({length: 6}, () => Math.floor(Math.random() * 60) + 10);
-            selectionStep = 0;
-            selectionSorting = false;
-            renderSelectionSort();
-            selectionStepText.textContent = "Data acak telah dibuat. Tekan 'Mulai Selection Sort' untuk memulai pengurutan.";
-        });
-        
-        document.getElementById('start-selection').addEventListener('click', () => {
-            selectionSorting = true;
-            selectionStep = 0;
-            selectionStepText.textContent = "Memulai Selection Sort. Tekan 'Langkah Berikutnya' untuk melanjutkan.";
-        });
-        
-        document.getElementById('step-selection').addEventListener('click', () => {
-            if (selectionSorting) {
-                selectionSortStep();
-            }
-        });
-        
-        document.getElementById('reset-selection').addEventListener('click', () => {
-            selectionData = [40, 20, 60, 10, 50, 30];
-            selectionStep = 0;
-            selectionSorting = false;
-            renderSelectionSort();
-            selectionStepText.textContent = "Selection Sort telah direset. Tekan 'Mulai Selection Sort' untuk memulai pengurutan.";
-        });
-        
-        // Quiz functionality
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', function() {
-                const options = this.parentElement.querySelectorAll('.option');
-                options.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
-        
-        document.getElementById('check-answers').addEventListener('click', () => {
-            document.querySelectorAll('.question').forEach(question => {
-                const selectedOption = question.querySelector('.option.selected');
-                const resultDiv = question.querySelector('.result');
-                
-                if (selectedOption) {
-                    resultDiv.style.display = 'block';
+                    // Highlight heading yang dipilih
+                    document.querySelectorAll('.heading-1, .heading-2, .heading-3').forEach(h => {
+                        h.style.backgroundColor = '';
+                    });
                     
-                    if (selectedOption.dataset.correct === 'true') {
-                        selectedOption.classList.add('correct');
-                        resultDiv.classList.add('correct');
-                        resultDiv.classList.remove('incorrect');
-                    } else {
-                        selectedOption.classList.add('incorrect');
-                        resultDiv.classList.add('incorrect');
-                        resultDiv.classList.remove('correct');
-                        
-                        const correctOption = question.querySelector('.option[data-correct="true"]');
-                        correctOption.classList.add('correct');
+                    targetHeading.style.backgroundColor = '#fffacd';
+                    
+                    // Scroll ke heading yang dipilih
+                    targetHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+        }
+        
+        // Fungsi untuk memperbarui daftar isi
+        function updateTOC() {
+            generateTOC();
+            alert('Daftar isi telah diperbarui!');
+        }
+        
+        // Fungsi untuk reset dokumen
+        function resetDocument() {
+            document.getElementById('documentEditor').innerHTML = `
+                <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
+                <div class="normal-text">Ini adalah contoh dokumen untuk mempraktikkan pembuatan daftar isi otomatis.</div>
+                <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
+                <div class="normal-text">Pilih teks di atas dan klik tombol Heading untuk menerapkan style.</div>
+                <div class="heading-2" data-heading="2">1.2 Tujuan</div>
+                <div class="normal-text">Setelah menerapkan style, klik "Buat Daftar Isi" untuk melihat hasilnya.</div>
+                <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
+                <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat</div>
+                <div class="normal-text">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025.</div>
+                <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
+                <div class="normal-text">Peserta terdiri dari seluruh pengurus OSIS.</div>
+            `;
+            
+            document.getElementById('tableOfContents').innerHTML = `
+                <h3>Daftar Isi</h3>
+                <p>Klik "Buat Daftar Isi" untuk menampilkan daftar isi otomatis di sini.</p>
+            `;
+            
+            // Tambahkan event listener untuk elemen yang baru direset
+            addEventListeners();
+        }
+        
+        // Fungsi untuk menambahkan event listener pada elemen dokumen
+        function addEventListeners() {
+            const editor = document.getElementById('documentEditor');
+            const elements = editor.querySelectorAll('div');
+            
+            elements.forEach(element => {
+                element.addEventListener('click', function() {
+                    // Hapus seleksi sebelumnya
+                    if (selectedElement) {
+                        selectedElement.style.outline = '';
                     }
-                }
+                    
+                    // Set elemen yang dipilih
+                    selectedElement = this;
+                    this.style.outline = '2px solid #3498db';
+                });
             });
-        });
+        }
         
-        document.getElementById('reset-quiz').addEventListener('click', () => {
-            document.querySelectorAll('.option').forEach(option => {
-                option.classList.remove('selected', 'correct', 'incorrect');
-            });
-            
-            document.querySelectorAll('.result').forEach(result => {
-                result.style.display = 'none';
-                result.classList.remove('correct', 'incorrect');
-            });
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            addEventListeners();
         });
-        
-        // Tracing functionality
-        document.getElementById('show-tracing').addEventListener('click', () => {
-            document.getElementById('tracing-result').style.display = 'block';
-        });
-        
-        document.getElementById('reset-tracing').addEventListener('click', () => {
-            document.getElementById('tracing-result').style.display = 'none';
-        });
-        
-        document.getElementById('trace-bubble').addEventListener('click', () => {
-            document.getElementById('bubble-trace-result').style.display = 'block';
-        });
-        
-        // Initial render
-        renderArray();
-        renderLeaderboard();
-        renderBubbleSort();
-        renderSelectionSort();
     </script>
 </body>
 </html>
