@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi Daftar Isi Otomatis Microsoft Word</title>
+    <title>Media Pembelajaran Interaktif: Berpikir Komputasional</title>
     <style>
         :root {
-            --primary: #2B579A; /* Warna biru khas Microsoft */
-            --secondary: #D83B01; /* Warna oranye aksen */
-            --light: #F5F5F5;
-            --dark: #323130;
-            --success: #107C10;
-            --warning: #FFB900;
-            --gray: #8A8886;
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
         }
         
         * {
@@ -23,811 +21,840 @@
         }
         
         body {
-            background-color: #f0f2f5;
+            background-color: #f5f7fa;
             color: var(--dark);
             line-height: 1.6;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary), #1e4e8c);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 25px 0;
+            padding: 30px 0;
             text-align: center;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        header h1 {
-            font-size: 2.4rem;
+        h1 {
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            font-weight: 600;
         }
         
-        header p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto;
+        .subtitle {
+            font-size: 1.2rem;
             opacity: 0.9;
         }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
+        .nav-tabs {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab:hover {
+            background-color: var(--light);
+        }
+        
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
         
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
+        .content-section.active {
+            display: block;
         }
         
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 22px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e1e5e9;
-        }
-        
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-        }
-        
-        .card h2 {
+        h2 {
             color: var(--primary);
-            margin-bottom: 18px;
-            padding-bottom: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--light);
-            font-weight: 600;
         }
         
-        .card h3 {
-            color: var(--secondary);
-            margin: 16px 0 10px;
-            font-weight: 600;
+        .array-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
         }
         
-        .steps {
-            counter-reset: step-counter;
-        }
-        
-        .step {
-            margin-bottom: 18px;
-            padding-left: 50px;
-            position: relative;
-        }
-        
-        .step:before {
-            counter-increment: step-counter;
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 32px;
-            height: 32px;
+        .array-element {
+            width: 80px;
+            height: 80px;
             background-color: var(--primary);
             color: white;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 0.9rem;
-        }
-        
-        .interactive-section {
-            background: white;
+            margin: 0 10px;
             border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-            margin-top: 25px;
-            border: 1px solid #e1e5e9;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
         
-        .word-interface {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .array-element.active {
+            background-color: var(--accent);
+            transform: scale(1.1);
         }
         
-        .word-toolbar {
-            background: #f3f3f3;
-            padding: 8px 12px;
-            border-bottom: 1px solid #ddd;
+        .array-element.compared {
+            background-color: var(--secondary);
+        }
+        
+        .array-element.swapped {
+            background-color: #f39c12;
+        }
+        
+        .controls {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .word-body {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            min-height: 500px;
-        }
-        
-        @media (max-width: 768px) {
-            .word-body {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .document-area {
-            padding: 20px;
-            background: white;
-            border-right: 1px solid #eee;
-            overflow-y: auto;
-        }
-        
-        .sidebar {
-            padding: 20px;
-            background: #f9f9f9;
-            overflow-y: auto;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
         }
         
         button {
-            padding: 8px 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            background: white;
-            color: var(--dark);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         button:hover {
-            background: #f0f0f0;
+            background-color: #2980b9;
+            transform: translateY(-2px);
         }
         
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
         }
         
-        .btn-primary:hover {
-            background-color: #1e4e8c;
+        .quiz-container {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
         }
         
-        .btn-secondary {
-            background-color: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #bdc3c7;
         }
         
-        .btn-secondary:hover {
-            background-color: #b73201;
-        }
-        
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-        
-        .btn-success:hover {
-            background-color: #0d6a0d;
-        }
-        
-        .heading-1 {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 15px 0 10px;
-            padding: 5px 0;
-        }
-        
-        .heading-2 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #34495e;
-            margin: 12px 0 8px;
-            margin-left: 15px;
-            padding: 4px 0;
-        }
-        
-        .heading-3 {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #5d6d7e;
-            margin: 10px 0 6px;
-            margin-left: 30px;
-            padding: 3px 0;
-        }
-        
-        .normal-text {
-            margin: 8px 0;
-            padding: 2px 0;
-        }
-        
-        .table-of-contents {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 18px;
-            background-color: white;
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
             margin-top: 15px;
         }
         
-        .toc-title {
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--primary);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-        }
-        
-        .toc-item {
-            margin: 6px 0;
+        .option {
+            padding: 12px;
+            background-color: white;
+            border-radius: 5px;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 3px;
-            transition: background-color 0.2s;
-            display: flex;
-            justify-content: space-between;
+            transition: all 0.2s ease;
         }
         
-        .toc-item:hover {
-            background-color: #f0f8ff;
+        .option:hover {
+            background-color: #e0e0e0;
         }
         
-        .toc-h1 {
-            font-weight: bold;
-            margin-left: 0;
-            font-size: 1.1rem;
+        .option.selected {
+            background-color: var(--primary);
+            color: white;
         }
         
-        .toc-h2 {
-            margin-left: 20px;
-            font-size: 1rem;
+        .option.correct {
+            background-color: var(--secondary);
+            color: white;
         }
         
-        .toc-h3 {
-            margin-left: 40px;
-            font-size: 0.95rem;
+        .option.incorrect {
+            background-color: var(--accent);
+            color: white;
         }
         
-        .page-number {
-            color: var(--gray);
-        }
-        
-        .note {
-            background-color: #fff9e6;
-            border-left: 4px solid var(--warning);
+        .explanation {
+            margin-top: 15px;
             padding: 15px;
-            margin: 18px 0;
-            border-radius: 0 5px 5px 0;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        .tracing-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step.active {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .code-block {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
         }
         
         .highlight {
-            background-color: #fffacd;
+            background-color: rgba(255, 255, 0, 0.2);
             padding: 2px 4px;
             border-radius: 3px;
-            font-weight: 500;
         }
         
-        .definition-box {
-            background-color: #f0f7ff;
-            border: 1px solid #cce0ff;
-            border-radius: 5px;
+        .feedback {
             padding: 15px;
+            border-radius: 5px;
             margin: 15px 0;
+            display: none;
         }
         
-        .definition-title {
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 8px;
+        .feedback.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid var(--secondary);
         }
         
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--gray);
-            border-top: 1px solid #e1e5e9;
-            font-size: 0.9rem;
+        .feedback.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid var(--accent);
         }
         
-        .selected {
-            background-color: #e6f3ff !important;
-            outline: 2px solid var(--primary);
-        }
-        
-        .style-gallery {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-        
-        .style-button {
-            padding: 6px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            background: white;
-            transition: all 0.2s;
-        }
-        
-        .style-button:hover {
-            background: #f0f0f0;
-        }
-        
-        .style-button.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .references-tab {
-            background: #e6e6e6;
-            padding: 5px 10px;
-            border-radius: 4px 4px 0 0;
-            display: inline-block;
-            margin-bottom: -1px;
-            border: 1px solid #ccc;
-            border-bottom: none;
-            font-weight: 500;
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .array-element {
+                width: 60px;
+                height: 60px;
+                margin: 5px;
+            }
+            
+            button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Simulasi Daftar Isi Otomatis Microsoft Word</h1>
-            <p>Panduan Lengkap dan Interaktif untuk Memahami Konsep dan Praktik Pembuatan Daftar Isi Otomatis</p>
+            <h1>Berpikir Komputasional</h1>
+            <p class="subtitle">Struktur Data Array dan Algoritma Pengurutan</p>
+            <p>SMA Negeri 2 Playen - Kelas X / Ganjil</p>
         </header>
         
-        <div class="content-grid">
-            <div class="card">
-                <h2>Konsep Dasar Daftar Isi Otomatis</h2>
-                
-                <div class="definition-box">
-                    <div class="definition-title">Apa itu Daftar Isi Otomatis?</div>
-                    <p>Daftar isi otomatis adalah fitur di Microsoft Word yang memungkinkan pembuatan daftar isi secara otomatis berdasarkan <span class="highlight">style heading</span> yang telah diterapkan pada dokumen. Fitur ini secara otomatis mengumpulkan semua judul dan subjudul yang telah diformat dengan style heading dan menampilkannya dalam bentuk daftar terstruktur dengan nomor halaman yang sesuai.</p>
-                </div>
-                
-                <h3>Mengapa Menggunakan Daftar Isi Otomatis?</h3>
-                <p>Penggunaan daftar isi otomatis memberikan beberapa keunggulan signifikan dibandingkan pembuatan manual:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><span class="highlight">Akurasi</span> - Nomor halaman selalu sesuai dengan posisi aktual heading dalam dokumen</li>
-                    <li><span class="highlight">Efisiensi</span> - Menghemat waktu karena tidak perlu mengetik ulang judul dan nomor halaman</li>
-                    <li><span class="highlight">Konsistensi</span> - Memastikan format daftar isi seragam throughout dokumen</li>
-                    <li><span class="highlight">Kemudahan Pembaruan</span> - Dapat diperbarui otomatis saat dokumen berubah</li>
-                    <li><span class="highlight">Navigasi Mudah</span> - Memungkinkan navigasi cepat ke bagian tertentu dengan mengklik item daftar isi</li>
-                </ul>
-                
-                <div class="note">
-                    <h3>Kapan Sebaiknya Menggunakan Daftar Isi Otomatis?</h3>
-                    <p>Daftar isi otomatis sangat berguna untuk dokumen panjang seperti:</p>
-                    <ul style="margin-left: 20px; margin-top: 8px;">
-                        <li>Laporan penelitian atau skripsi</li>
-                        <li>Buku atau manual pengguna</li>
-                        <li>Dokumen teknis dengan banyak bab dan subbab</li>
-                        <li>Proposal proyek yang kompleks</li>
-                        <li>Laporan kegiatan seperti LKPD OSIS</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>Memahami Struktur Heading</h2>
-                
-                <p>Kunci dari daftar isi otomatis adalah penggunaan <span class="highlight">heading styles</span> yang tepat. Microsoft Word memiliki hierarki heading dari Level 1 (tertinggi) hingga Level 9 (terendah), namun yang umum digunakan adalah Heading 1, Heading 2, dan Heading 3.</p>
-                
-                <h3>Hierarki Heading yang Tepat</h3>
-                <p>Berikut contoh struktur heading yang benar untuk dokumen formal:</p>
-                <table style="width:100%; border-collapse: collapse; margin-top:12px; margin-bottom: 15px;">
-                    <tr style="background-color: #f2f2f2;">
-                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Bagian Dokumen</th>
-                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Style yang Direkomendasikan</th>
-                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Contoh</th>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Judul Utama / Bab</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Heading 1</td>
-                        <td style="padding:10px; border:1px solid #ddd;">BAB I PENDAHULUAN</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Subjudul Tingkat 1</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Heading 2</td>
-                        <td style="padding:10px; border:1px solid #ddd;">1.1 Latar Belakang</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Subjudul Tingkat 2</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Heading 3</td>
-                        <td style="padding:10px; border:1px solid #ddd;">1.1.1 Kondisi Saat Ini</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:10px; border:1px solid #ddd;">Teks Biasa / Paragraf</td>
-                        <td style="padding:10px; border:1px solid #ddd;">Normal / Body Text</td>
-                        <td style="padding:10px; border:1px solid #ddd;">OSIS SMA Negeri 2 Playen memiliki...</td>
-                    </tr>
-                </table>
-                
-                <h3>Prinsip Penyusunan Heading</h3>
-                <div class="steps">
-                    <div class="step">
-                        <p>Gunakan <span class="highlight">Heading 1</span> untuk bagian paling penting seperti judul bab atau bagian utama</p>
-                    </div>
-                    <div class="step">
-                        <p>Gunakan <span class="highlight">Heading 2</span> untuk subbagian di bawah Heading 1</p>
-                    </div>
-                    <div class="step">
-                        <p>Gunakan <span class="highlight">Heading 3</span> untuk subbagian di bawah Heading 2 (jika diperlukan)</p>
-                    </div>
-                    <div class="step">
-                        <p>Jangan melompati level heading (misalnya dari Heading 1 langsung ke Heading 3)</p>
-                    </div>
-                    <div class="step">
-                        <p>Pastikan semua teks yang ingin muncul di daftar isi telah diberi style heading yang sesuai</p>
-                    </div>
-                </div>
-            </div>
+        <div class="nav-tabs">
+            <div class="tab active" data-target="konsep">Konsep Array</div>
+            <div class="tab" data-target="sorting">Algoritma Pengurutan</div>
+            <div class="tab" data-target="tracing">Analisis Tracing</div>
+            <div class="tab" data-target="quiz">Kuis Interaktif</div>
         </div>
         
-        <div class="interactive-section">
-            <h2>Simulasi Microsoft Word - Pembuatan Daftar Isi Otomatis</h2>
-            <p>Praktekkan langsung dengan simulasi Word di bawah ini. Pilih teks, terapkan heading style, dan lihat bagaimana daftar isi otomatis terbentuk!</p>
+        <!-- Konsep Array Section -->
+        <section id="konsep" class="content-section active">
+            <h2>Konsep Dasar Array</h2>
+            <p>Array adalah struktur data yang digunakan untuk menyimpan kumpulan data dengan tipe yang sama dalam satu variabel. Bayangkan array sebagai sekumpulan kotak berurutan yang masing-masing dapat menampung satu nilai.</p>
             
-            <div class="word-interface">
-                <div class="word-toolbar">
-                    <div class="style-gallery">
-                        <div class="style-button" onclick="applyStyle('normal')">Normal</div>
-                        <div class="style-button" onclick="applyStyle('heading-1')">Heading 1</div>
-                        <div class="style-button" onclick="applyStyle('heading-2')">Heading 2</div>
-                        <div class="style-button" onclick="applyStyle('heading-3')">Heading 3</div>
+            <div class="array-container" id="array-visualization">
+                <!-- Array elements will be generated by JavaScript -->
+            </div>
+            
+            <div class="controls">
+                <button id="add-element">Tambah Elemen</button>
+                <button id="remove-element">Hapus Elemen</button>
+                <button id="randomize-array">Acak Nilai</button>
+            </div>
+            
+            <div class="code-block">
+                <pre>// Deklarasi array dalam JavaScript
+let scores = [85, 92, 78, 96, 88];
+
+// Mengakses elemen array
+console.log(scores[0]); // Output: 85
+console.log(scores[2]); // Output: 78
+
+// Mengubah nilai elemen array
+scores[1] = 95; // Sekarang scores = [85, 95, 78, 96, 88]
+
+// Menambah elemen baru
+scores.push(90); // scores = [85, 95, 78, 96, 88, 90]</pre>
+            </div>
+            
+            <h3>Kegiatan Interaktif: Simulasi Array</h3>
+            <p>Gunakan kontrol di atas untuk menambah, menghapus, atau mengacak nilai array. Perhatikan bagaimana array memungkinkan kita menyimpan dan mengelola banyak data dalam satu struktur.</p>
+            
+            <div class="quiz-container">
+                <div class="question">
+                    <p><strong>Pertanyaan:</strong> Jika kita memiliki array dengan nama "buah" yang berisi ["Apel", "Jeruk", "Mangga"], apa yang akan terjadi jika kita menjalankan perintah <span class="highlight">buah[1] = "Pisang"</span>?</p>
+                    <div class="options">
+                        <div class="option" data-correct="false">Array akan menjadi ["Pisang", "Jeruk", "Mangga"]</div>
+                        <div class="option" data-correct="true">Array akan menjadi ["Apel", "Pisang", "Mangga"]</div>
+                        <div class="option" data-correct="false">Array akan menjadi ["Apel", "Jeruk", "Pisang"]</div>
+                        <div class="option" data-correct="false">Terjadi error karena indeks tidak valid</div>
                     </div>
-                    <div style="margin-left: auto; display: flex; gap: 8px;">
-                        <button class="btn-primary" onclick="generateTOC()">Buat Daftar Isi</button>
-                        <button class="btn-success" onclick="updateTOC()">Perbarui Daftar Isi</button>
-                        <button class="btn-secondary" onclick="resetDocument()">Reset Dokumen</button>
-                    </div>
-                </div>
-                <div class="word-body">
-                    <div class="document-area" id="documentEditor">
-                        <div class="heading-1" data-heading="1">LAPORAN KEGIATAN OSIS SMA NEGERI 2 PLAYEN</div>
-                        <div class="normal-text" data-heading="0">Tahun Pelajaran 2024/2025</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
-                        <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
-                        <div class="normal-text" data-heading="0">OSIS SMA Negeri 2 Playen memiliki tanggung jawab sosial untuk menumbuhkan rasa kepedulian terhadap masyarakat sekitar. Salah satu bentuk kegiatan yang dilakukan setiap tahun adalah kegiatan bakti sosial dan donor darah.</div>
-                        
-                        <div class="heading-2" data-heading="2">1.2 Tujuan Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Kegiatan ini bertujuan untuk:</div>
-                        <div class="normal-text" data-heading="0">1. Menumbuhkan rasa empati dan kepedulian sosial siswa.</div>
-                        <div class="normal-text" data-heading="0">2. Meningkatkan kesadaran pentingnya donor darah.</div>
-                        <div class="normal-text" data-heading="0">3. Membangun citra positif sekolah.</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
-                        <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat Pelaksanaan</div>
-                        <div class="normal-text" data-heading="0">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025, pukul 07.30–12.00 WIB di Aula SMA Negeri 2 Playen.</div>
-                        
-                        <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Peserta kegiatan terdiri dari seluruh pengurus OSIS, anggota ekstrakurikuler PMR, serta guru pendamping.</div>
-                        
-                        <div class="heading-2" data-heading="2">2.3 Rangkaian Acara</div>
-                        <div class="normal-text" data-heading="0">Kegiatan terdiri dari pembukaan, penyuluhan donor darah, donor darah bersama PMI, penyerahan bantuan sosial, dan penutupan.</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB III HASIL DAN PEMBAHASAN</div>
-                        <div class="heading-2" data-heading="2">3.1 Hasil Pelaksanaan Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Dari kegiatan donor darah, terkumpul sebanyak 67 kantong darah yang diserahkan kepada PMI Gunungkidul. Selain itu, bantuan sosial berupa paket sembako sebanyak 80 paket disalurkan ke warga sekitar sekolah.</div>
-                        
-                        <div class="heading-2" data-heading="2">3.2 Evaluasi Kegiatan</div>
-                        <div class="normal-text" data-heading="0">Secara umum kegiatan berjalan lancar. Namun, beberapa kendala ditemukan, antara lain kurangnya alat medis dari PMI dan keterbatasan waktu pelaksanaan.</div>
-                        
-                        <div class="heading-1" data-heading="1">BAB IV PENUTUP</div>
-                        <div class="heading-2" data-heading="2">4.1 Kesimpulan</div>
-                        <div class="normal-text" data-heading="0">Kegiatan bakti sosial dan donor darah ini memberikan manfaat besar bagi masyarakat dan siswa. Melalui kegiatan ini, siswa belajar untuk berempati, bekerja sama, dan menumbuhkan semangat gotong royong.</div>
-                    </div>
-                    
-                    <div class="sidebar">
-                        <div class="references-tab">REFERENCES</div>
-                        <div class="table-of-contents" id="tableOfContents">
-                            <div class="toc-title">DAFTAR ISI</div>
-                            <p>Klik tombol "Buat Daftar Isi" untuk menampilkan daftar isi otomatis di sini.</p>
-                            <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Setelah daftar isi dibuat, Anda dapat mengklik item untuk navigasi cepat.</p>
-                        </div>
-                        
-                        <div style="margin-top: 25px;">
-                            <h3 style="color: var(--primary); margin-bottom: 10px;">Panduan Cepat</h3>
-                            <div class="steps">
-                                <div class="step">
-                                    <p>Pilih teks di area dokumen</p>
-                                </div>
-                                <div class="step">
-                                    <p>Klik style yang diinginkan (Normal, Heading 1, 2, atau 3)</p>
-                                </div>
-                                <div class="step">
-                                    <p>Klik "Buat Daftar Isi" untuk menghasilkan daftar isi</p>
-                                </div>
-                                <div class="step">
-                                    <p>Ubah dokumen, lalu klik "Perbarui Daftar Isi"</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="explanation">
+                        <p><strong>Penjelasan:</strong> Dalam pemrograman, indeks array dimulai dari 0. Jadi, <span class="highlight">buah[1]</span> merujuk pada elemen kedua dalam array, yaitu "Jeruk". Menggantinya dengan "Pisang" akan menghasilkan array ["Apel", "Pisang", "Mangga"].</p>
                     </div>
                 </div>
             </div>
-            
-            <div class="note">
-                <h3>Tips Profesional untuk Daftar Isi yang Efektif</h3>
-                <ul style="margin-left: 20px; margin-top: 8px;">
-                    <li>Gunakan <span class="highlight">Heading 1</span> hanya untuk bagian paling penting seperti judul bab</li>
-                    <li>Pertahankan konsistensi dalam penulisan judul (huruf besar/kecil, gaya)</li>
-                    <li>Perbarui daftar isi setiap kali ada perubahan signifikan pada dokumen</li>
-                    <li>Gunakan <span class="highlight">Update Entire Table</span> ketika struktur dokumen berubah</li>
-                    <li>Pastikan daftar isi mencerminkan struktur dokumen secara akurat</li>
-                </ul>
-            </div>
-        </div>
+        </section>
         
-        <div class="card">
-            <h2>Langkah Detail Pembuatan Daftar Isi Otomatis</h2>
+        <!-- Algoritma Pengurutan Section -->
+        <section id="sorting" class="content-section">
+            <h2>Algoritma Pengurutan: Bubble Sort</h2>
+            <p>Bubble Sort adalah algoritma pengurutan sederhana yang berulang kali membandingkan elemen-elemen yang berdekatan dan menukarnya jika urutannya salah. Proses ini diulang hingga tidak ada lagi pertukaran yang diperlukan.</p>
             
-            <div class="steps">
-                <div class="step">
-                    <h3>Persiapan Dokumen</h3>
-                    <p>Sebelum membuat daftar isi, pastikan semua judul dan subjudul dalam dokumen telah diformat dengan style heading yang sesuai. Gunakan <span class="highlight">Heading 1</span> untuk judul bab, <span class="highlight">Heading 2</span> untuk subbab, dan <span class="highlight">Heading 3</span> untuk sub-subbab jika diperlukan.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Menempatkan Kursor</h3>
-                    <p>Posisikan kursor di tempat Anda ingin menampilkan daftar isi, biasanya di halaman awal dokumen setelah halaman judul.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Membuka Menu Table of Contents</h3>
-                    <p>Buka tab <span class="highlight">References</span> di ribbon Microsoft Word, lalu klik tombol <span class="highlight">Table of Contents</span>.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Memilih Gaya Daftar Isi</h3>
-                    <p>Pilih salah satu opsi daftar isi otomatis yang tersedia. Word menyediakan beberapa template siap pakai dengan format yang berbeda.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Menyesuaikan Pengaturan (Opsional)</h3>
-                    <p>Jika diperlukan, Anda dapat menyesuaikan pengaturan daftar isi dengan memilih <span class="highlight">Custom Table of Contents</span>. Di sini Anda dapat mengubah format, level heading yang ditampilkan, dan opsi lainnya.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Memperbarui Daftar Isi</h3>
-                    <p>Setelah membuat perubahan pada dokumen (menambah, menghapus, atau memindahkan heading), klik kanan pada daftar isi dan pilih <span class="highlight">Update Field</span>. Pilih <span class="highlight">Update Entire Table</span> untuk memperbarui seluruh daftar isi.</p>
-                </div>
+            <div class="array-container" id="sorting-visualization">
+                <!-- Array elements for sorting will be generated by JavaScript -->
             </div>
             
-            <div class="definition-box">
-                <div class="definition-title">Memahami Opsi Update Field</div>
-                <p>Ketika memperbarui daftar isi, Word menawarkan dua opsi:</p>
-                <ul style="margin-left: 20px; margin-top: 8px;">
-                    <li><span class="highlight">Update page numbers only</span> - Hanya memperbarui nomor halaman, tanpa mengubah judul</li>
-                    <li><span class="highlight">Update entire table</span> - Memperbarui seluruh daftar isi termasuk judul dan nomor halaman</li>
-                </ul>
-                <p style="margin-top: 10px;">Gunakan <span class="highlight">Update entire table</span> ketika Anda menambah, menghapus, atau mengubah judul heading. Gunakan <span class="highlight">Update page numbers only</span> ketika hanya posisi halaman yang berubah.</p>
+            <div class="controls">
+                <button id="start-sorting">Mulai Pengurutan</button>
+                <button id="next-step">Langkah Berikutnya</button>
+                <button id="reset-sorting">Reset</button>
             </div>
-        </div>
+            
+            <div class="code-block">
+                <pre>// Implementasi Bubble Sort dalam JavaScript
+function bubbleSort(arr) {
+    let n = arr.length;
+    let swapped;
+    
+    do {
+        swapped = false;
+        for (let i = 0; i < n - 1; i++) {
+            // Bandingkan elemen yang berdekatan
+            if (arr[i] > arr[i + 1]) {
+                // Tukar jika urutannya salah
+                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+                swapped = true;
+            }
+        }
+        n--;
+    } while (swapped);
+    
+    return arr;
+}
+
+// Contoh penggunaan
+let numbers = [64, 34, 25, 12, 22, 11, 90];
+console.log(bubbleSort(numbers)); // Output: [11, 12, 22, 25, 34, 64, 90]</pre>
+            </div>
+            
+            <div id="sorting-status">
+                <p>Status: <span id="status-text">Siap memulai pengurutan</span></p>
+                <p>Perbandingan: <span id="comparison-count">0</span></p>
+                <p>Pertukaran: <span id="swap-count">0</span></p>
+            </div>
+        </section>
         
-        <footer>
-            <p>Simulasi Pembelajaran Daftar Isi Otomatis Microsoft Word - Materi Teknologi Informasi dan Komunikasi</p>
-            <p>SMA Negeri 2 Playen - Tahun Pelajaran 2024/2025</p>
-            <p style="margin-top: 8px;">Aplikasi ini mensimulasikan fungsi dasar pembuatan daftar isi otomatis untuk keperluan pembelajaran.</p>
-        </footer>
+        <!-- Analisis Tracing Section -->
+        <section id="tracing" class="content-section">
+            <h2>Analisis Tracing Algoritma</h2>
+            <p>Tracing adalah proses menelusuri eksekusi algoritma langkah demi langkah untuk memahami cara kerjanya dan menganalisis hasil akhirnya.</p>
+            
+            <div class="tracing-container">
+                <h3>Contoh: Tracing Bubble Sort</h3>
+                <p>Mari kita telusuri eksekusi Bubble Sort pada array: [10, 5, 12]</p>
+                
+                <div class="step active">
+                    <p><strong>Langkah 1:</strong> Bandingkan elemen pada indeks 0 (10) dan indeks 1 (5)</p>
+                    <p>10 > 5? <strong>Ya</strong>, jadi kita menukarnya.</p>
+                    <p>Array sekarang: [5, 10, 12]</p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Langkah 2:</strong> Bandingkan elemen pada indeks 1 (10) dan indeks 2 (12)</p>
+                    <p>10 > 12? <strong>Tidak</strong>, jadi tidak ada pertukaran.</p>
+                    <p>Array tetap: [5, 10, 12]</p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Langkah 3:</strong> Satu putaran selesai. Periksa apakah masih ada pertukaran?</p>
+                    <p>Dalam putaran ini terjadi 1 pertukaran, jadi kita lanjutkan.</p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Langkah 4:</strong> Bandingkan elemen pada indeks 0 (5) dan indeks 1 (10)</p>
+                    <p>5 > 10? <strong>Tidak</strong>, jadi tidak ada pertukaran.</p>
+                    <p>Array tetap: [5, 10, 12]</p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Langkah 5:</strong> Tidak ada pertukaran dalam putaran ini, algoritma selesai.</p>
+                    <p><strong>Array terurut: [5, 10, 12]</strong></p>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="prev-step">Langkah Sebelumnya</button>
+                <button id="next-tracing-step">Langkah Berikutnya</button>
+                <button id="reset-tracing">Mulai Ulang</button>
+            </div>
+            
+            <h3>Aktivitas Tracing Interaktif</h3>
+            <p>Coba telusuri eksekusi algoritma berikut:</p>
+            
+            <div class="tracing-activity">
+                <p><strong>Soal:</strong> Diberikan array [15, 8, 20, 11]. Telusuri dua putaran pertama dari Bubble Sort dan tentukan kondisi array setelahnya.</p>
+                
+                <div class="tracing-steps" id="interactive-tracing">
+                    <!-- Interactive tracing steps will be generated by JavaScript -->
+                </div>
+                
+                <div class="feedback" id="tracing-feedback"></div>
+            </div>
+        </section>
+        
+        <!-- Kuis Interaktif Section -->
+        <section id="quiz" class="content-section">
+            <h2>Kuis Interaktif</h2>
+            <p>Uji pemahaman Anda tentang konsep array dan algoritma pengurutan dengan kuis berikut.</p>
+            
+            <div class="quiz-container" id="quiz-questions">
+                <!-- Quiz questions will be loaded by JavaScript -->
+            </div>
+            
+            <div class="controls">
+                <button id="submit-quiz">Periksa Jawaban</button>
+                <button id="reset-quiz">Mulai Ulang Kuis</button>
+            </div>
+            
+            <div id="quiz-results">
+                <!-- Quiz results will be displayed here -->
+            </div>
+        </section>
     </div>
 
     <script>
-        let selectedElement = null;
-        let currentStyle = 'normal';
+        // Global variables
+        let currentArray = [23, 15, 42, 8, 16];
+        let sortingArray = [...currentArray];
+        let isSorting = false;
+        let currentStep = 0;
+        let comparisonCount = 0;
+        let swapCount = 0;
+        let currentTracingStep = 0;
+        let userAnswers = {};
         
-        // Fungsi untuk menerapkan style
-        function applyStyle(style) {
-            currentStyle = style;
+        // DOM Elements
+        const arrayVisualization = document.getElementById('array-visualization');
+        const sortingVisualization = document.getElementById('sorting-visualization');
+        const tabs = document.querySelectorAll('.tab');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeArrayVisualization();
+            initializeSortingVisualization();
+            initializeTabs();
+            initializeQuiz();
+            initializeTracing();
             
-            // Update tampilan tombol style
-            document.querySelectorAll('.style-button').forEach(button => {
-                button.classList.remove('active');
+            // Event listeners for array controls
+            document.getElementById('add-element').addEventListener('click', addArrayElement);
+            document.getElementById('remove-element').addEventListener('click', removeArrayElement);
+            document.getElementById('randomize-array').addEventListener('click', randomizeArray);
+            
+            // Event listeners for sorting controls
+            document.getElementById('start-sorting').addEventListener('click', startSorting);
+            document.getElementById('next-step').addEventListener('click', nextSortingStep);
+            document.getElementById('reset-sorting').addEventListener('click', resetSorting);
+            
+            // Event listeners for tracing controls
+            document.getElementById('prev-step').addEventListener('click', prevTracingStep);
+            document.getElementById('next-tracing-step').addEventListener('click', nextTracingStep);
+            document.getElementById('reset-tracing').addEventListener('click', resetTracing);
+            
+            // Event listeners for quiz controls
+            document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
+            document.getElementById('reset-quiz').addEventListener('click', resetQuiz);
+        });
+        
+        // Tab navigation
+        function initializeTabs() {
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content section
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
             });
-            event.target.classList.add('active');
-            
-            if (selectedElement) {
-                // Hapus class style sebelumnya
-                selectedElement.classList.remove('heading-1', 'heading-2', 'heading-3', 'normal-text');
-                
-                // Tambahkan class style yang baru
-                if (style !== 'normal') {
-                    selectedElement.classList.add(style);
-                    selectedElement.setAttribute('data-heading', style.split('-')[1]);
-                } else {
-                    selectedElement.classList.add('normal-text');
-                    selectedElement.setAttribute('data-heading', '0');
-                }
-                
-                // Update tampilan daftar isi jika sudah dibuat
-                if (document.querySelectorAll('.toc-item').length > 0) {
-                    updateTOC();
-                }
-            } else {
-                alert('Pilih teks terlebih dahulu dengan mengklik pada bagian dokumen!');
+        }
+        
+        // Array Visualization
+        function initializeArrayVisualization() {
+            updateArrayVisualization();
+        }
+        
+        function updateArrayVisualization() {
+            arrayVisualization.innerHTML = '';
+            currentArray.forEach((value, index) => {
+                const element = document.createElement('div');
+                element.className = 'array-element';
+                element.textContent = value;
+                element.setAttribute('data-index', index);
+                arrayVisualization.appendChild(element);
+            });
+        }
+        
+        function addArrayElement() {
+            const newValue = Math.floor(Math.random() * 50) + 1;
+            currentArray.push(newValue);
+            updateArrayVisualization();
+        }
+        
+        function removeArrayElement() {
+            if (currentArray.length > 1) {
+                currentArray.pop();
+                updateArrayVisualization();
             }
         }
         
-        // Fungsi untuk menghasilkan daftar isi
-        function generateTOC() {
-            const headings = document.querySelectorAll('[data-heading]');
-            const tocContainer = document.getElementById('tableOfContents');
-            
-            // Filter hanya heading (bukan normal text)
-            const headingElements = Array.from(headings).filter(el => {
-                return el.getAttribute('data-heading') !== '0';
+        function randomizeArray() {
+            currentArray = Array.from({length: 5}, () => Math.floor(Math.random() * 50) + 1);
+            updateArrayVisualization();
+        }
+        
+        // Sorting Visualization
+        function initializeSortingVisualization() {
+            updateSortingVisualization();
+        }
+        
+        function updateSortingVisualization() {
+            sortingVisualization.innerHTML = '';
+            sortingArray.forEach((value, index) => {
+                const element = document.createElement('div');
+                element.className = 'array-element';
+                element.textContent = value;
+                element.setAttribute('data-index', index);
+                sortingVisualization.appendChild(element);
             });
             
-            if (headingElements.length === 0) {
-                tocContainer.innerHTML = '<div class="toc-title">DAFTAR ISI</div><p>Tidak ada heading yang ditemukan. Terapkan heading style terlebih dahulu.</p>';
+            document.getElementById('comparison-count').textContent = comparisonCount;
+            document.getElementById('swap-count').textContent = swapCount;
+        }
+        
+        function startSorting() {
+            isSorting = true;
+            currentStep = 0;
+            comparisonCount = 0;
+            swapCount = 0;
+            sortingArray = [...currentArray];
+            updateSortingVisualization();
+            document.getElementById('status-text').textContent = 'Pengurutan dimulai';
+            document.getElementById('start-sorting').disabled = true;
+            document.getElementById('next-step').disabled = false;
+        }
+        
+        function nextSortingStep() {
+            if (!isSorting || currentStep >= sortingArray.length - 1) {
+                document.getElementById('status-text').textContent = 'Pengurutan selesai';
+                document.getElementById('next-step').disabled = true;
                 return;
             }
             
-            let tocHTML = '<div class="toc-title">DAFTAR ISI</div>';
-            let page = 1;
-            let currentPage = 1;
+            // Highlight the elements being compared
+            const elements = sortingVisualization.querySelectorAll('.array-element');
+            elements[currentStep].classList.add('compared');
+            elements[currentStep + 1].classList.add('compared');
             
-            headingElements.forEach((heading, index) => {
-                const level = heading.getAttribute('data-heading');
-                const text = heading.textContent;
+            comparisonCount++;
+            
+            // Check if we need to swap
+            if (sortingArray[currentStep] > sortingArray[currentStep + 1]) {
+                // Swap the elements
+                [sortingArray[currentStep], sortingArray[currentStep + 1]] = 
+                [sortingArray[currentStep + 1], sortingArray[currentStep]];
                 
-                // Simulasi nomor halaman (dalam implementasi nyata, ini akan dihitung berdasarkan posisi)
-                // Di sini kita menggunakan increment sederhana untuk simulasi
-                if (index > 0 && index % 2 === 0) {
-                    currentPage++;
+                swapCount++;
+                
+                // Update visualization after a short delay to show the comparison
+                setTimeout(() => {
+                    updateSortingVisualization();
+                    elements[currentStep].classList.add('swapped');
+                    elements[currentStep + 1].classList.add('swapped');
+                    document.getElementById('status-text').textContent = `Elemen ${sortingArray[currentStep]} dan ${sortingArray[currentStep + 1]} ditukar`;
+                }, 500);
+            } else {
+                document.getElementById('status-text').textContent = `Elemen ${sortingArray[currentStep]} dan ${sortingArray[currentStep + 1]} tidak perlu ditukar`;
+            }
+            
+            currentStep++;
+            
+            // Reset for next iteration if we've reached the end
+            if (currentStep >= sortingArray.length - 1) {
+                // Check if array is sorted
+                let isSorted = true;
+                for (let i = 0; i < sortingArray.length - 1; i++) {
+                    if (sortingArray[i] > sortingArray[i + 1]) {
+                        isSorted = false;
+                        break;
+                    }
                 }
                 
-                tocHTML += `
-                    <div class="toc-item toc-h${level}" data-index="${index}">
-                        <span>${text}</span>
-                        <span class="page-number">${currentPage}</span>
+                if (isSorted) {
+                    document.getElementById('status-text').textContent = 'Array telah terurut!';
+                    document.getElementById('next-step').disabled = true;
+                } else {
+                    // Start next pass
+                    currentStep = 0;
+                    document.getElementById('status-text').textContent = 'Memulai putaran berikutnya';
+                }
+            }
+        }
+        
+        function resetSorting() {
+            isSorting = false;
+            currentStep = 0;
+            comparisonCount = 0;
+            swapCount = 0;
+            sortingArray = [...currentArray];
+            updateSortingVisualization();
+            document.getElementById('status-text').textContent = 'Siap memulai pengurutan';
+            document.getElementById('start-sorting').disabled = false;
+            document.getElementById('next-step').disabled = false;
+        }
+        
+        // Tracing
+        function initializeTracing() {
+            updateTracingSteps();
+        }
+        
+        function updateTracingSteps() {
+            const steps = document.querySelectorAll('.tracing-container .step');
+            steps.forEach((step, index) => {
+                if (index === currentTracingStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        function prevTracingStep() {
+            if (currentTracingStep > 0) {
+                currentTracingStep--;
+                updateTracingSteps();
+            }
+        }
+        
+        function nextTracingStep() {
+            const steps = document.querySelectorAll('.tracing-container .step');
+            if (currentTracingStep < steps.length - 1) {
+                currentTracingStep++;
+                updateTracingSteps();
+            }
+        }
+        
+        function resetTracing() {
+            currentTracingStep = 0;
+            updateTracingSteps();
+        }
+        
+        // Quiz
+        function initializeQuiz() {
+            const quizQuestions = [
+                {
+                    question: "Dalam pemrograman, jika Anda ingin menyimpan satu data, misalnya skor nilai ulangan Budi yaitu 90, Anda akan menyimpannya dalam sebuah \"wadah\" bernama yang disebut...",
+                    options: ["Array", "Algoritma", "Variabel", "Tipe Data", "Prosesor"],
+                    correct: 2,
+                    explanation: "Variabel adalah \"kotak\" dasar dalam memori yang diberi nama untuk menyimpan satu nilai (seperti angka 90). Pemahaman ini fundamental sebelum siswa belajar \"Array\" sebagai \"kotak\" yang bisa menyimpan banyak nilai."
+                },
+                {
+                    question: "Diberikan sekumpulan angka acak: [15, 8, 20, 11]. Apakah yang dimaksud dengan mengurutkan data tersebut secara ascending (menaik)?",
+                    options: [
+                        "Mencari angka terbesar, yaitu 20.",
+                        "Menghitung jumlah semua angka.",
+                        "Menghapus angka yang ganjil.",
+                        "Menyusun ulang angka menjadi [20, 15, 11, 8].",
+                        "Menyusun ulang angka menjadi [8, 11, 15, 20]."
+                    ],
+                    correct: 4,
+                    explanation: "Ascending (menaik) berarti mengurutkan dari nilai terkecil ke nilai terbesar. Ini menguji apakah siswa paham tujuan dari algoritma pengurutan sebelum mereka belajar caranya."
+                },
+                {
+                    question: "Dalam logika algoritma, kita sering membandingkan dua nilai, A dan B. Jika A = 25 dan B = 25, manakah pernyataan logika di bawah ini yang bernilai SALAH?",
+                    options: [
+                        "A == B (A sama dengan B)",
+                        "A >= B (A lebih besar atau sama dengan B)",
+                        "A <= B (A lebih kecil atau sama dengan B)",
+                        "A != B (A tidak sama dengan B)",
+                        "B == 25"
+                    ],
+                    correct: 3,
+                    explanation: "Karena A (25) dan B (25) nilainya sama, maka pernyataan bahwa \"A tidak sama dengan B\" adalah pernyataan yang SALAH. Kemampuan logika perbandingan ini adalah inti dari algoritma sorting dan searching."
+                }
+            ];
+            
+            const quizContainer = document.getElementById('quiz-questions');
+            quizContainer.innerHTML = '';
+            
+            quizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <p><strong>Pertanyaan ${index + 1}:</strong> ${q.question}</p>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((option, optIndex) => 
+                            `<div class="option" data-question="${index}" data-option="${optIndex}">${option}</div>`
+                        ).join('')}
+                    </div>
+                    <div class="explanation" id="explanation-${index}">
+                        <p><strong>Penjelasan:</strong> ${q.explanation}</p>
                     </div>
                 `;
-            });
-            
-            tocContainer.innerHTML = tocHTML;
-            
-            // Tambahkan event listener untuk item daftar isi
-            document.querySelectorAll('.toc-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    const targetHeading = headingElements[index];
-                    
-                    // Highlight heading yang dipilih
-                    document.querySelectorAll('.heading-1, .heading-2, .heading-3').forEach(h => {
-                        h.style.backgroundColor = '';
+                quizContainer.appendChild(questionDiv);
+                
+                // Add event listeners to options
+                const options = questionDiv.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const questionIndex = parseInt(this.getAttribute('data-question'));
+                        const optionIndex = parseInt(this.getAttribute('data-option'));
+                        
+                        // Clear previous selection for this question
+                        const allOptions = document.querySelectorAll(`#options-${questionIndex} .option`);
+                        allOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Select this option
+                        this.classList.add('selected');
+                        
+                        // Store user's answer
+                        userAnswers[questionIndex] = optionIndex;
                     });
-                    
-                    targetHeading.style.backgroundColor = '#e6f3ff';
-                    
-                    // Scroll ke heading yang dipilih
-                    targetHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-            
-            // Tampilkan pesan sukses
-            alert('Daftar isi berhasil dibuat! Klik item daftar isi untuk navigasi cepat.');
-        }
-        
-        // Fungsi untuk memperbarui daftar isi
-        function updateTOC() {
-            generateTOC();
-            alert('Daftar isi telah diperbarui!');
-        }
-        
-        // Fungsi untuk reset dokumen
-        function resetDocument() {
-            document.getElementById('documentEditor').innerHTML = `
-                <div class="heading-1" data-heading="1">LAPORAN KEGIATAN OSIS SMA NEGERI 2 PLAYEN</div>
-                <div class="normal-text" data-heading="0">Tahun Pelajaran 2024/2025</div>
-                
-                <div class="heading-1" data-heading="1">BAB I PENDAHULUAN</div>
-                <div class="heading-2" data-heading="2">1.1 Latar Belakang</div>
-                <div class="normal-text" data-heading="0">OSIS SMA Negeri 2 Playen memiliki tanggung jawab sosial untuk menumbuhkan rasa kepedulian terhadap masyarakat sekitar. Salah satu bentuk kegiatan yang dilakukan setiap tahun adalah kegiatan bakti sosial dan donor darah.</div>
-                
-                <div class="heading-2" data-heading="2">1.2 Tujuan Kegiatan</div>
-                <div class="normal-text" data-heading="0">Kegiatan ini bertujuan untuk:</div>
-                <div class="normal-text" data-heading="0">1. Menumbuhkan rasa empati dan kepedulian sosial siswa.</div>
-                <div class="normal-text" data-heading="0">2. Meningkatkan kesadaran pentingnya donor darah.</div>
-                <div class="normal-text" data-heading="0">3. Membangun citra positif sekolah.</div>
-                
-                <div class="heading-1" data-heading="1">BAB II PELAKSANAAN KEGIATAN</div>
-                <div class="heading-2" data-heading="2">2.1 Waktu dan Tempat Pelaksanaan</div>
-                <div class="normal-text" data-heading="0">Kegiatan dilaksanakan pada hari Jumat, 14 Februari 2025, pukul 07.30–12.00 WIB di Aula SMA Negeri 2 Playen.</div>
-                
-                <div class="heading-2" data-heading="2">2.2 Peserta Kegiatan</div>
-                <div class="normal-text" data-heading="0">Peserta kegiatan terdiri dari seluruh pengurus OSIS, anggota ekstrakurikuler PMR, serta guru pendamping.</div>
-                
-                <div class="heading-2" data-heading="2">2.3 Rangkaian Acara</div>
-                <div class="normal-text" data-heading="0">Kegiatan terdiri dari pembukaan, penyuluhan donor darah, donor darah bersama PMI, penyerahan bantuan sosial, dan penutupan.</div>
-                
-                <div class="heading-1" data-heading="1">BAB III HASIL DAN PEMBAHASAN</div>
-                <div class="heading-2" data-heading="2">3.1 Hasil Pelaksanaan Kegiatan</div>
-                <div class="normal-text" data-heading="0">Dari kegiatan donor darah, terkumpul sebanyak 67 kantong darah yang diserahkan kepada PMI Gunungkidul. Selain itu, bantuan sosial berupa paket sembako sebanyak 80 paket disalurkan ke warga sekitar sekolah.</div>
-                
-                <div class="heading-2" data-heading="2">3.2 Evaluasi Kegiatan</div>
-                <div class="normal-text" data-heading="0">Secara umum kegiatan berjalan lancar. Namun, beberapa kendala ditemukan, antara lain kurangnya alat medis dari PMI dan keterbatasan waktu pelaksanaan.</div>
-                
-                <div class="heading-1" data-heading="1">BAB IV PENUTUP</div>
-                <div class="heading-2" data-heading="2">4.1 Kesimpulan</div>
-                <div class="normal-text" data-heading="0">Kegiatan bakti sosial dan donor darah ini memberikan manfaat besar bagi masyarakat dan siswa. Melalui kegiatan ini, siswa belajar untuk berempati, bekerja sama, dan menumbuhkan semangat gotong royong.</div>
-            `;
-            
-            document.getElementById('tableOfContents').innerHTML = `
-                <div class="toc-title">DAFTAR ISI</div>
-                <p>Klik tombol "Buat Daftar Isi" untuk menampilkan daftar isi otomatis di sini.</p>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Setelah daftar isi dibuat, Anda dapat mengklik item untuk navigasi cepat.</p>
-            `;
-            
-            // Reset tombol style
-            document.querySelectorAll('.style-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector('.style-button').classList.add('active');
-            currentStyle = 'normal';
-            
-            // Tambahkan event listener untuk elemen yang baru direset
-            addEventListeners();
-        }
-        
-        // Fungsi untuk menambahkan event listener pada elemen dokumen
-        function addEventListeners() {
-            const editor = document.getElementById('documentEditor');
-            const elements = editor.querySelectorAll('div');
-            
-            elements.forEach(element => {
-                element.addEventListener('click', function() {
-                    // Hapus seleksi sebelumnya
-                    if (selectedElement) {
-                        selectedElement.classList.remove('selected');
-                    }
-                    
-                    // Set elemen yang dipilih
-                    selectedElement = this;
-                    this.classList.add('selected');
-                    
-                    // Tentukan style saat ini untuk tombol
-                    const currentHeading = this.getAttribute('data-heading');
-                    document.querySelectorAll('.style-button').forEach(button => {
-                        button.classList.remove('active');
-                    });
-                    
-                    if (currentHeading === '0') {
-                        document.querySelector('.style-button').classList.add('active');
-                        currentStyle = 'normal';
-                    } else {
-                        document.querySelector(`.style-button:nth-child(${parseInt(currentHeading) + 1})`).classList.add('active');
-                        currentStyle = `heading-${currentHeading}`;
-                    }
                 });
             });
         }
         
-        // Inisialisasi saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', function() {
-            addEventListeners();
+        function submitQuiz() {
+            const quizQuestions = [
+                { correct: 2 },
+                { correct: 4 },
+                { correct: 3 }
+            ];
             
-            // Set tombol Normal sebagai aktif secara default
-            document.querySelector('.style-button').classList.add('active');
-        });
+            let correctCount = 0;
+            
+            // Check answers and show feedback
+            for (let i = 0; i < quizQuestions.length; i++) {
+                const userAnswer = userAnswers[i];
+                const correctAnswer = quizQuestions[i].correct;
+                const options = document.querySelectorAll(`#options-${i} .option`);
+                const explanation = document.getElementById(`explanation-${i}`);
+                
+                // Show explanation
+                explanation.style.display = 'block';
+                
+                // Mark correct and incorrect answers
+                options.forEach((option, index) => {
+                    if (index === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (index === userAnswer && userAnswer !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswer === correctAnswer) {
+                    correctCount++;
+                }
+            }
+            
+            // Display results
+            const resultsDiv = document.getElementById('quiz-results');
+            resultsDiv.innerHTML = `
+                <div class="feedback ${correctCount === quizQuestions.length ? 'correct' : 'incorrect'}">
+                    <h3>Hasil Kuis</h3>
+                    <p>Anda menjawab ${correctCount} dari ${quizQuestions.length} pertanyaan dengan benar.</p>
+                    <p>${correctCount === quizQuestions.length ? 'Selamat! Anda menguasai materi dengan baik.' : 'Periksa kembali jawaban yang salah dan pelajari penjelasannya.'}</p>
+                </div>
+            `;
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function resetQuiz() {
+            userAnswers = {};
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            const explanations = document.querySelectorAll('.explanation');
+            explanations.forEach(explanation => {
+                explanation.style.display = 'none';
+            });
+            
+            document.getElementById('quiz-results').innerHTML = '';
+        }
     </script>
 </body>
 </html>
